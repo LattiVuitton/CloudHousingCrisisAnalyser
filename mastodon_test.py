@@ -13,3 +13,9 @@ mastodon.log_in(
     passwords.password,
     to_file='test_mastodon_save'
 )
+
+searched = mastodon.search("dogs")
+
+accounts = searched['accounts']
+statuses = searched['statuses']
+hashtags = searched['hashtags']
