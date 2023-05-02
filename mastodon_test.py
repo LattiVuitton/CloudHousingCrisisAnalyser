@@ -19,3 +19,7 @@ searched = mastodon.search("dogs")
 accounts = searched['accounts']
 statuses = searched['statuses']
 hashtags = searched['hashtags']
+
+for hashtag in hashtags:
+    print("\n",hashtag.name)
+    print(hashtag.history)
