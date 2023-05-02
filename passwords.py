@@ -1,2 +1,2 @@
-username = "INSERT MASTODON USERNAME"
-password = "INSERT MASTODON PASSWORD"
+username = "jonathanlatti01@gmail.com"
+password = "MXH6%H8G&y-cs^C"

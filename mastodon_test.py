@@ -1,4 +1,5 @@
 from mastodon import Mastodon
+import passwords
 
 Mastodon.create_app(
     'latti_test_app',
@@ -7,5 +8,8 @@ Mastodon.create_app(
 )
 
 mastodon = Mastodon(client_id='test_mastodon_save')
-
-print(mastodon)
+mastodon.log_in(
+    passwords.username,
+    passwords.password,
+    to_file='test_mastodon_save'
+)
