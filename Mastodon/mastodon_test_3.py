@@ -3,12 +3,15 @@ import requests
 import pandas as pd
 import html_text
 import couchdb
-import json
 from couchdb.http import Session
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 # Mastodon info
 URL = 'https://urbanists.social/api/v1/timelines/public'
 params = {'limit': 40}
+LAST_N_MINUTES = 50
+sid = SentimentIntensityAnalyzer() # for sentiment analysis
 
 # CouchDB info
 url = 'http://172.26.134.4:5984/'
@@ -33,9 +36,9 @@ def pushToCouch(data):
 
     print(f'Document inserted with ID: {doc_id} and revision: {doc_rev}')
 
-def getRecent(hours):
+def getRecent(minutes):
 
-    start_time = pd.Timestamp('now', tz='Australia/Melbourne') - pd.DateOffset(hour=hours)
+    start_time = pd.Timestamp('now', tz='utc') - pd.DateOffset(hour=1)#minute=minutes)
     is_end = False
     all_posts = []
 
@@ -57,11 +60,11 @@ def getRecent(hours):
             break
 
         for post in posts:
-            timestamp = pd.Timestamp(post['created_at'], tz='Australia/Melbourne')
+            timestamp = pd.Timestamp(post['created_at'], tz='utc')
             if timestamp <= start_time:
                 is_end = True
                 break
-                
+            
             all_posts.append(post)
         
         if is_end:
@@ -73,20 +76,36 @@ def getRecent(hours):
     df = pd.DataFrame(all_posts)
     return df
 
-
-posts = getRecent(hours=1)
 posts_pushed = 0
+non_eng = 0
 
-for i in range(len(posts)):
+for i in range(5):
+    posts = getRecent(minutes=LAST_N_MINUTES)
 
-    # Main processing
-    post_content = posts.loc[i]['content']
-    post_text = html_text.extract_text(post_content)
+    for i in range(len(posts)):
 
-    post_json = {'text':post_text}
-    pushToCouch(post_json)
-    posts_pushed += 1
+        # Main processing
+        if posts.loc[i]['language'] == 'en':
 
-print("Pushed", posts_pushed, "posts.")
+            post_content = posts.loc[i]['content']
+            post_text = html_text.extract_text(post_content)
+
+            sentiment = sid.polarity_scores(post_text)['compound']
+
+            post_json = {
+                'text': post_text,
+                'created_at':posts.loc[i]['created_at'],
+                'id':posts.loc[i]['id'],
+                'sentiment':sentiment
+            }
+            # print(posts.loc[i])
+            # print(post_json,"\n\n")
+            # pushToCouch(post_json)
+            posts_pushed += 1
+        else:
+            non_eng += 1
+    print(len(posts), "Posts")
+
+print("Pushed", posts_pushed, "posts. (" + str(non_eng), "Non-English posts)")
     
 
