@@ -4,14 +4,18 @@ import pandas as pd
 import html_text
 import couchdb
 from couchdb.http import Session
-import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import copy
+
+# For running on server -> $ nohup python mypythonscript.py &
 
 # Mastodon info
 URL = 'https://urbanists.social/api/v1/timelines/public'
 params = {'limit': 40}
-LAST_N_MINUTES = 50
-sid = SentimentIntensityAnalyzer() # for sentiment analysis
+set_1 = set()
+set_2 = set()
+sid = SentimentIntensityAnalyzer()
+start_time = pd.Timestamp('now', tz='utc')
 
 # CouchDB info
 url = 'http://172.26.134.4:5984/'
@@ -21,47 +25,31 @@ pem_path = 'C:/Users/jonat/OneDrive/Desktop/test_latti.pem'
 def pushToCouch(data):
 
     # Connect to the CouchDB server using the .pem file
-    # session = Session()
-    # session.cert_file = pem_path
     server = couchdb.Server(url)
 
     # Select the database to use
     db = server[dbname]
 
-    # Convert the data to JSON format
+    # Convert the data to JSON format and insert
     data_json = json.dumps(data)
+    db.save(json.loads(data_json))
 
-    # Insert the data into the database
-    doc_id, doc_rev = db.save(json.loads(data_json))
+def getRecent():
 
-    print(f'Document inserted with ID: {doc_id} and revision: {doc_rev}')
-
-def getRecent(minutes):
-
-    start_time = pd.Timestamp('now', tz='utc') - pd.DateOffset(hour=1)#minute=minutes)
     is_end = False
     all_posts = []
 
-    counter = 0
-    dots = 3
-
     while True:
-
-        counter += 1
-        if counter > dots:
-            counter = 0
-
-        print("Loading", "." * counter, " " * (dots - counter), end="\r")
 
         r = requests.get(URL, params=params)
         posts = json.loads(r.text)
 
-        if not len(posts):
+        if len(posts) == 0:
             break
 
         for post in posts:
             timestamp = pd.Timestamp(post['created_at'], tz='utc')
-            if timestamp <= start_time:
+            if timestamp < start_time:
                 is_end = True
                 break
             
@@ -76,36 +64,36 @@ def getRecent(minutes):
     df = pd.DataFrame(all_posts)
     return df
 
-posts_pushed = 0
-non_eng = 0
+while True:
 
-for i in range(5):
-    posts = getRecent(minutes=LAST_N_MINUTES)
+    posts = getRecent()
 
-    for i in range(len(posts)):
+    if len(posts) > 0:
+        start_time = pd.Timestamp(posts.loc[len(posts)-1]['created_at'], tz='utc')
 
-        # Main processing
-        if posts.loc[i]['language'] == 'en':
+        for i in range(len(posts)):
 
-            post_content = posts.loc[i]['content']
-            post_text = html_text.extract_text(post_content)
+            set_2.add(posts.loc[i]['id'])
 
-            sentiment = sid.polarity_scores(post_text)['compound']
+            if posts.loc[i]['id'] not in set_1:
 
-            post_json = {
-                'text': post_text,
-                'created_at':posts.loc[i]['created_at'],
-                'id':posts.loc[i]['id'],
-                'sentiment':sentiment
-            }
-            # print(posts.loc[i])
-            # print(post_json,"\n\n")
-            # pushToCouch(post_json)
-            posts_pushed += 1
-        else:
-            non_eng += 1
-    print(len(posts), "Posts")
+                # Main processing
+                if posts.loc[i]['language'] == 'en':
 
-print("Pushed", posts_pushed, "posts. (" + str(non_eng), "Non-English posts)")
-    
+                    post_content = posts.loc[i]['content']
+                    post_text = html_text.extract_text(post_content)
 
+                    sentiment = sid.polarity_scores(post_text)['compound']
+
+                    post_json = {
+                        'text': post_text,
+                        'created_at':posts.loc[i]['created_at'],
+                        'post_id':posts.loc[i]['id'],
+                        'sentiment':sentiment
+                    }
+
+                    pushToCouch(post_json)
+                    print("Pushed")
+
+        set_1 = copy.deepcopy(set_2)
+        set_2.clear()
