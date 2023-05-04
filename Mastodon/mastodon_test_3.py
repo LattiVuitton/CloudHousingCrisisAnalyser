@@ -7,10 +7,14 @@ from couchdb.http import Session
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import copy
 
-# For running on server -> $ nohup python mypythonscript.py &
+# For running on server -> $ nohup python3 mypythonscript.py &
+# nohup python3 mastodon_nohup python3 mastodon_scraper.py &
 
 # Mastodon info
-URL = 'https://urbanists.social/api/v1/timelines/public'
+URLS = [
+    'https://urbanists.social/api/v1/timelines/public',
+    'https://mastodon.social/api/v1/timelines/public'
+]
 params = {'limit': 40}
 set_1 = set()
 set_2 = set()
@@ -34,32 +38,35 @@ def pushToCouch(data):
     data_json = json.dumps(data)
     db.save(json.loads(data_json))
 
+# Retrieves posts since last get request
 def getRecent():
 
     is_end = False
     all_posts = []
 
-    while True:
+    for server_url in URLS:
 
-        r = requests.get(URL, params=params)
-        posts = json.loads(r.text)
+        while True:
 
-        if len(posts) == 0:
-            break
+            r = requests.get(server_url, params=params)
+            posts = json.loads(r.text)
 
-        for post in posts:
-            timestamp = pd.Timestamp(post['created_at'], tz='utc')
-            if timestamp < start_time:
-                is_end = True
+            if len(posts) == 0:
                 break
-            
-            all_posts.append(post)
-        
-        if is_end:
-            break
 
-        max_id = posts[-1]['id']
-        params['max_id'] = max_id
+            for post in posts:
+                timestamp = pd.Timestamp(post['created_at'], tz='utc')
+                if timestamp < start_time:
+                    is_end = True
+                    break
+                
+                all_posts.append(post)
+            
+            if is_end:
+                break
+
+            max_id = posts[-1]['id']
+            params['max_id'] = max_id
 
     df = pd.DataFrame(all_posts)
     return df
@@ -93,7 +100,6 @@ while True:
                     }
 
                     pushToCouch(post_json)
-                    print("Pushed")
 
         set_1 = copy.deepcopy(set_2)
         set_2.clear()
