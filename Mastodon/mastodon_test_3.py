@@ -7,8 +7,7 @@ from couchdb.http import Session
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import copy
 
-# For running on server -> $ nohup python3 mypythonscript.py &
-# nohup python3 mastodon_nohup python3 mastodon_scraper.py &
+# For running on server -> $ nohup python3 mastodon_scraper.py &
 
 # Mastodon info
 URLS = [
