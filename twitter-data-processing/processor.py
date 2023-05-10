@@ -74,13 +74,13 @@ for prefix, event, value in parser:
     elif prefix == 'rows.item.doc.data.context_annotations.item.domain.name' and value != None:
         context_annotation.append(str(value))
     elif prefix == 'rows.item.doc.includes.places.item.geo.place_id' and value != None:
-        tweet['place_id'] = str(value)
+        tweet['geo_place_id'] = str(value)
         valid = True
     elif prefix == 'rows.item.doc.includes.places.item.geo.bbox.item' and value != None:
         geo_bbox.append(str(value))
         valid = True
     elif prefix == 'rows.item.doc.includes.places.item.geo.full_name' and value != None:
-        geo_bbox.append(str(value))
+        tweet['geo_name'] = str(value)
         valid = True
     elif prefix == 'rows.item.doc.data.public_metrics.retweet_count' and value != None:
         tweet['retweet_count'] = str(value)
@@ -94,6 +94,8 @@ for prefix, event, value in parser:
         tweet['text'] = str(value)
     elif prefix == 'rows.item.doc.data.sentiment' and value != None:
         tweet['sentiment'] = str(value)
+    elif prefix == 'rows.item.doc.data.lang':
+        tweet['lang'] = str(value)
 
 print("tweet_count: " , tweet_count, " valid_tweet_count: ", valid_tweet_count)
 # tweet_df = pd.DataFrame(tweet_data)
