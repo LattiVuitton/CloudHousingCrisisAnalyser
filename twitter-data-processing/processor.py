@@ -1,8 +1,13 @@
 import ijson
 import os
+import json
 import pandas as pd
 import requests
-import json
+import nltk
+from datetime import datetime
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+nltk.download('vader_lexicon')
 
 #get config and twitter files
 current_path = os.path.abspath(__file__)
@@ -37,12 +42,20 @@ tweet = {}
 context_annotation = []
 geo_bbox = []
 
+start = datetime.now()
+
+sid = SentimentIntensityAnalyzer()
+
 for prefix, event, value in parser:
     
     if prefix == 'rows.item.id':
         if valid == True: #if previous tweet was valid i.e. have geo id
             tweet['context_annotation'] = context_annotation
             tweet['geo_bbox'] = geo_bbox
+            try:
+                tweet['nltk_sentiment'] = sentiment = sid.polarity_scores(tweet['text'])['compound']
+            except:
+                tweet['nltk_sentiment'] = 0
             valid_tweet_count+=1
             json_tweet = json.dumps(tweet)
             req = requests.post(url, headers = headers, data = json_tweet)
@@ -97,6 +110,7 @@ for prefix, event, value in parser:
     elif prefix == 'rows.item.doc.data.lang':
         tweet['lang'] = str(value)
 
+print("Total sending time: ", datetime.now() - start)
 print("tweet_count: " , tweet_count, " valid_tweet_count: ", valid_tweet_count)
 # tweet_df = pd.DataFrame(tweet_data)
 # print(tweet_df)
