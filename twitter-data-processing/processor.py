@@ -86,14 +86,14 @@ for prefix, event, value in parser:
         tweet['created_at'] = str(value)
     elif prefix == 'rows.item.doc.data.context_annotations.item.domain.name' and value != None:
         context_annotation.append(str(value))
-    elif prefix == 'rows.item.doc.includes.places.item.geo.place_id' and value != None:
+    elif prefix == 'rows.item.doc.data.geo.place_id' and value != None:
         tweet['geo_place_id'] = str(value)
         valid = True
     elif prefix == 'rows.item.doc.includes.places.item.geo.bbox.item' and value != None:
         geo_bbox.append(str(value))
         valid = True
-    elif prefix == 'rows.item.doc.includes.places.item.geo.full_name' and value != None:
-        tweet['geo_name'] = str(value)
+    elif prefix == 'rows.item.doc.includes.places.item.full_name' and value != None:
+        tweet['geo_full_name'] = str(value)
         valid = True
     elif prefix == 'rows.item.doc.data.public_metrics.retweet_count' and value != None:
         tweet['retweet_count'] = str(value)
