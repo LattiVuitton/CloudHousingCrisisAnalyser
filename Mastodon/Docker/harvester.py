@@ -29,8 +29,6 @@ URLS = [
 db_url = 'http://admin:mysecretpassword@172.26.135.198:5984/'
 
 # dbname = 'mastodon_test_db'
-dbname = 'mastodon_test_3'
-
 
 def pushToCouch(data):
     """
