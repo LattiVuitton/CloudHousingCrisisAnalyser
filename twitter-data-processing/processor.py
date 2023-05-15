@@ -6,6 +6,7 @@ import requests
 import nltk
 from datetime import datetime
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import tweetnlp
 
 nltk.download('vader_lexicon')
 
@@ -31,6 +32,12 @@ headers = {'Content-type':'application/json'}
 twitter_rel_path = "twitter-test.json"
 twitter_file_path = os.path.join(parent_path, twitter_rel_path)
 parser = ijson.parse(open(twitter_file_path))
+
+#load all tweet text classification models
+irony_model = tweetnlp.Irony()
+hate_speech_model = tweetnlp.Hate()
+offensive_speech_model = tweetnlp.Offensive()
+emotion_detector_model = tweetnlp.Emotion()
 
 tweet_data = []
 tweet_count = 0
@@ -60,9 +67,18 @@ for prefix, event, value in parser:
             except:
                 tweet['nltk_sentiment'] = 0
             valid_tweet_count+=1
+            # tweet classifications
+            tweet['irony'] = irony = irony_model.predict(tweet['text'])['label']
+            
+            tweet['hate'] = hate = hate_speech_model.predict(tweet['text'])['label']
+        
+            tweet['offensive'] = offensive = offensive_speech_model.predict(tweet['text'])['label']
+            
+            tweet['emotion'] = emotion = emotion_detector_model.predict(tweet['text'])['label']
+           
             to_send['docs'].append(tweet)
 
-            #tweet_data.append(tweet)
+            tweet_data.append(tweet)
 
         #re-initialise
         valid = False
