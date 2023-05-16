@@ -1,8 +1,10 @@
-- hosts: test-pw
+- hosts: worker-server-2
   gather_facts: true
+  vars:
+    remote_twitter_data_dir: /home/ubuntu/twitter-data-processing
+    local_twitter_data_dir: ../twitter-data-processing
 
   roles:
     - role: common
-    #- role: twitter-data-processing
-
+    - role: twitter-data-processing
 
