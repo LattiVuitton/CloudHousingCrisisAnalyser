@@ -1,2 +1,7 @@
-[Wordpress]
-1.1.1.1
+[test-pw]
+ubuntu@172.26.135.198
+
+[test-pw:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=~/.ssh/cloud_key
+ansible_user=ubuntu
