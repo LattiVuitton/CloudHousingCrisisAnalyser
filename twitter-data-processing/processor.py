@@ -7,30 +7,21 @@ import nltk
 from datetime import datetime
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import tweetnlp
+import twitterDataConfig
 
 nltk.download('vader_lexicon')
 
-#get config and twitter files
-current_path = os.path.abspath(__file__)
-parent_path = os.path.dirname(current_path)
-config_rel_path = "../config.py"  
-config_file_path = os.path.join(parent_path, config_rel_path)
-
-import sys
-sys.path.append(os.path.dirname(config_file_path)) # Append parent directory to sys.path
-
-import config
-
 #setup db connection to post to
-username = config.username_db
-password = config.password_db
-db = config.twitter_data_db
+username = twitterDataConfig.username_db
+password = twitterDataConfig.password_db
+db = twitterDataConfig.twitter_data_db
 url = "http://" + username + ":" + password + "@" + db
 headers = {'Content-type':'application/json'}
 
 #get and parse twitter data
+script_dir = os.path.dirname(__file__)
 twitter_rel_path = "twitter-test.json"
-twitter_file_path = os.path.join(parent_path, twitter_rel_path)
+twitter_file_path = os.path.join(script_dir, twitter_rel_path)
 parser = ijson.parse(open(twitter_file_path))
 
 #load all tweet text classification models
