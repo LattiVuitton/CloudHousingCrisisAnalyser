@@ -6,31 +6,30 @@ import requests
 import nltk
 from datetime import datetime
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import tweetnlp
+import twitterDataConfig
 
 nltk.download('vader_lexicon')
 
-#get config and twitter files
-current_path = os.path.abspath(__file__)
-parent_path = os.path.dirname(current_path)
-config_rel_path = "../config.py"  
-config_file_path = os.path.join(parent_path, config_rel_path)
-
-import sys
-sys.path.append(os.path.dirname(config_file_path)) # Append parent directory to sys.path
-
-import config
-
 #setup db connection to post to
-username = config.username_db
-password = config.password_db
-db = config.twitter_data_db
+username = twitterDataConfig.username_db
+password = twitterDataConfig.password_db
+db = twitterDataConfig.twitter_data_db
 url = "http://" + username + ":" + password + "@" + db
 headers = {'Content-type':'application/json'}
 
 #get and parse twitter data
+script_dir = os.path.dirname(__file__)
 twitter_rel_path = "twitter-test.json"
-twitter_file_path = os.path.join(parent_path, twitter_rel_path)
+twitter_file_path = os.path.join(script_dir, twitter_rel_path)
 parser = ijson.parse(open(twitter_file_path))
+
+#load all tweet text classification models
+irony_model = tweetnlp.Irony()
+hate_speech_model = tweetnlp.Hate()
+offensive_speech_model = tweetnlp.Offensive()
+emotion_detector_model = tweetnlp.Emotion()
+sentiment_model = tweetnlp.Sentiment()
 
 tweet_data = []
 tweet_count = 0
@@ -60,9 +59,20 @@ for prefix, event, value in parser:
             except:
                 tweet['nltk_sentiment'] = 0
             valid_tweet_count+=1
+            # tweet classifications
+            tweet['irony'] = irony = irony_model.predict(tweet['text'])['label']
+            
+            tweet['hate'] = hate = hate_speech_model.predict(tweet['text'])['label']
+        
+            tweet['offensive'] = offensive = offensive_speech_model.predict(tweet['text'])['label']
+            
+            tweet['emotion'] = emotion = emotion_detector_model.predict(tweet['text'])['label']
+
+            tweet['tweet-nlp-senti'] = sentiment2 = sentiment_model.predict(tweet['text'])['label']
+          
             to_send['docs'].append(tweet)
 
-            #tweet_data.append(tweet)
+            tweet_data.append(tweet)
 
         #re-initialise
         valid = False
@@ -122,6 +132,7 @@ if len(to_send['docs']) > 0:
     req = requests.post(url, headers = headers, data = json_to_send)
     if req.status_code != 201:
         print("ERROR", req.status_code)
+        print("Response content:", req.content)
 
 print("Total sending time: ", datetime.now() - start)
 print("tweet_count: " , tweet_count, " valid_tweet_count: ", valid_tweet_count)
