@@ -28,11 +28,6 @@
     src: "{{ local_twitter_data_dir }}/processor.py"
     dest: "{{ remote_twitter_data_dir }}/processor.py"
 
-- name: Copy test file
-  ansible.builtin.copy:
-    src: "{{ local_twitter_data_dir }}/twitter-test.json"
-    dest: "{{ remote_twitter_data_dir }}/twitter-test.json"
-
 - name: Save twitter data from dropbox
   command: curl -L -o "{{ remote_twitter_data_dir }}/twitter-data.zip" https://www.dropbox.com/s/r6l4ke6h858bzph/twitter-huge.json.zip?dl=0
 

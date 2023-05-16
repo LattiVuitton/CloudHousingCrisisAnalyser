@@ -18,3 +18,11 @@
   ansible.builtin.pip:
     name: ['pip']
     state: latest
+
+- name: Add team's public keys to ssh authorized keys
+  ansible.posix.authorized_key:
+    user: ubuntu
+    state: present
+    key: '{{ item }}'
+  with_file:
+    - ../public_keys/team.pem

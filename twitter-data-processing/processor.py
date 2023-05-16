@@ -20,7 +20,7 @@ headers = {'Content-type':'application/json'}
 
 #get and parse twitter data
 script_dir = os.path.dirname(__file__)
-twitter_rel_path = "twitter-test.json"
+twitter_rel_path = "twitter-huge.json"
 twitter_file_path = os.path.join(script_dir, twitter_rel_path)
 parser = ijson.parse(open(twitter_file_path))
 
