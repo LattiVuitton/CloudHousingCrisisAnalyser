@@ -38,6 +38,7 @@ irony_model = tweetnlp.Irony()
 hate_speech_model = tweetnlp.Hate()
 offensive_speech_model = tweetnlp.Offensive()
 emotion_detector_model = tweetnlp.Emotion()
+sentiment_model = tweetnlp.Sentiment()
 
 tweet_data = []
 tweet_count = 0
@@ -75,7 +76,9 @@ for prefix, event, value in parser:
             tweet['offensive'] = offensive = offensive_speech_model.predict(tweet['text'])['label']
             
             tweet['emotion'] = emotion = emotion_detector_model.predict(tweet['text'])['label']
-           
+
+            tweet['tweet-nlp-senti'] = sentiment2 = sentiment_model.predict(tweet['text'])['label']
+          
             to_send['docs'].append(tweet)
 
             tweet_data.append(tweet)
@@ -138,6 +141,7 @@ if len(to_send['docs']) > 0:
     req = requests.post(url, headers = headers, data = json_to_send)
     if req.status_code != 201:
         print("ERROR", req.status_code)
+        print("Response content:", req.content)
 
 print("Total sending time: ", datetime.now() - start)
 print("tweet_count: " , tweet_count, " valid_tweet_count: ", valid_tweet_count)
