@@ -8,7 +8,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import copy
 import tweetnlp
 
-ATTEMPTS_BEFORE_GIVE_UP = 20
+ATTEMPTS_BEFORE_GIVE_UP = 5
 
 # Mastodon info
 URLS = [
@@ -232,7 +232,6 @@ def main_function():
                     hate = hate_speech_model.predict(post_text)['label']
                     offensive = offensive_speech_model.predict(post_text)['label']
                     emotion = emotion_detector_model.predict(post_text)['label']
-                    tweet_nlp_sentiment = sentiment_model.predict(post_text)['label']
 
                     # Create a JSON object with the post information
                     post_json = {
@@ -248,7 +247,6 @@ def main_function():
                         'hate':hate,
                         'offensive':offensive,
                         'emotion': emotion,
-                        'tweet-nlp-senti':tweet_nlp_sentiment
                     }
 
                     attempts_left = ATTEMPTS_BEFORE_GIVE_UP
