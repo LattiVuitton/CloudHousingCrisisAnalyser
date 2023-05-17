@@ -30,7 +30,7 @@ URLS = [
 
 # CouchDB info
 db_url = 'http://admin:mysecretpassword@172.26.135.198:5984/'
-dbname = 'mastodon_test_db'
+dbname = 'mastodon_test_3' # <_______________CHANGE!
 
 def pushToCouch(data):
     """
@@ -228,15 +228,27 @@ def main_function():
 
                     # Get the sentiment score of the post text
                     sentiment = sid.polarity_scores(post_text)['compound']
+                    irony = irony_model.predict(post_text)['label']
+                    hate = hate_speech_model.predict(post_text)['label']
+                    offensive = offensive_speech_model.predict(post_text)['label']
+                    emotion = emotion_detector_model.predict(post_text)['label']
+                    tweet_nlp_sentiment = sentiment_model.predict(post_text)['label']
 
                     # Create a JSON object with the post information
                     post_json = {
                         'text': post_text,
                         'created_at':posts.loc[i]['created_at'],
                         '_id':posts.loc[i]['id'],
-                        'sentiment':sentiment,
                         'language':posts.loc[i]['language'],
                         'region':posts.loc[i]['region_posted'],
+
+                        # Sentiment models
+                        'sentiment':sentiment,
+                        'irony':irony,
+                        'hate':hate,
+                        'offensive':offensive,
+                        'emotion': emotion,
+                        'tweet-nlp-senti':tweet_nlp_sentiment
                     }
 
                     attempts_left = ATTEMPTS_BEFORE_GIVE_UP
