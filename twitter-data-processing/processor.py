@@ -42,7 +42,7 @@ context_annotation = []
 geo_bbox = []
 to_send = {"docs":[]}
 
-BATCH_SIZE = 5000
+BATCH_SIZE = 500
 
 start = datetime.now()
 
