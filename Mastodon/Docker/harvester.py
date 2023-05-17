@@ -30,7 +30,7 @@ URLS = [
 
 # CouchDB info
 db_url = 'http://admin:mysecretpassword@172.26.135.198:5984/'
-dbname = 'mastodon_test_3' # <_______________CHANGE!
+dbname = 'mastodon_test_4'
 
 def pushToCouch(data):
     """
