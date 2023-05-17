@@ -1,3 +1,13 @@
+- hosts: worker-server-1
+  gather_facts: true
+  become: yes
+  roles:
+    - role: common
+    - role: install-docker
+    - role: install-portainer
+    - role: deploy-docker-containers
+
+
 - hosts: worker-server-2
   gather_facts: true
   vars:
@@ -5,6 +15,7 @@
     local_twitter_data_dir: ../twitter-data-processing
 
   roles:
-    - role: common
     - role: twitter-data-processing
+
+
 
