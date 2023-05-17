@@ -8,7 +8,7 @@
 
 
 [worker-server-2]
-ubuntu@172.26.129.244
+ubuntu@172.26.132.178
 
 [worker-server-2:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
@@ -16,7 +16,7 @@ ansible_ssh_private_key_file=../keys/team_private.key
 ansible_user=ubuntu
 
 [worker-server-1]
-ubuntu@172.26.132.140
+ubuntu@172.26.131.253
 
 [worker-server-1:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
@@ -24,7 +24,7 @@ ansible_ssh_private_key_file=../keys/team_private.key
 ansible_user=ubuntu
 
 [master-server]
-ubuntu@172.26.136.93
+ubuntu@172.26.136.103
 
 [master-server:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
