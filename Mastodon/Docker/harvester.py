@@ -6,6 +6,7 @@ import html_text
 import couchdb
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import copy
+import tweetnlp
 
 ATTEMPTS_BEFORE_GIVE_UP = 20
 
@@ -179,7 +180,15 @@ def main_function():
         None
     """
 
+    # load all text classification models
     sid = SentimentIntensityAnalyzer()
+    irony_model = tweetnlp.Irony()
+    hate_speech_model = tweetnlp.Hate()
+    offensive_speech_model = tweetnlp.Offensive()
+    emotion_detector_model = tweetnlp.Emotion()
+    sentiment_model = tweetnlp.Sentiment()
+
+    # Time at load
     start_time = pd.Timestamp('now', tz='utc')
 
     # Sets are used to avoid checking known local duplicates on server

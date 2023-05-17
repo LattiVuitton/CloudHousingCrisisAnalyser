@@ -4,10 +4,9 @@ import pandas as pd
 import html_text
 
 URL = 'https://mastodon.social/api/v1/timelines/public'
-
+params = {'limit': 40}
 
 def getRecent(hours):
-    params = {'limit': 40}
 
     start_time = pd.Timestamp('now', tz='Australia/Melbourne') - pd.DateOffset(hour=hours)
     is_end = False
@@ -47,12 +46,17 @@ def getRecent(hours):
     df = pd.DataFrame(all_posts)
     return df
 
-posts = getRecent(hours=1)
+count = 0
 
-for i in range(len(posts)):
+while count < 1:
+    count += 1
+    print("Round", count)
+    posts = getRecent(hours=1)
 
-    # Main processing
-    post_content = posts.loc[i]['content']
-    post_text = html_text.extract_text(post_content)
+    for i in range(len(posts)):
 
-    print(post_text, "\n-----------\n")
+        # Main processing
+        post_content = posts.loc[i]['content']
+        post_text = html_text.extract_text(post_content)
+
+        print(post_text, "\n-----------\n")

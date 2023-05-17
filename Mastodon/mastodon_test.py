@@ -1,6 +1,6 @@
 from mastodon import Mastodon
 import passwords, datetime
-from bs4 import BeautifulSoup
+import html_text
 
 Mastodon.create_app(
     'latti_test_app',
@@ -15,23 +15,29 @@ mastodon.log_in(
     to_file='test_mastodon_save'
 )
 
-searched = mastodon.search(q='*', min_id=1)
+searched = mastodon.search(q='*')
 
 accounts = searched['accounts']
 statuses = searched['statuses']
 hashtags = searched['hashtags']
 
-# print(statuses)
-# print(len(accounts))
+print(statuses)
+print(len(accounts))
+print(len(statuses))
+print(len(hashtags))
 
-posts = mastodon.timeline_local(limit=100)
+posts = mastodon.timeline_public(limit=100)
 # posts = mastodon.timeline(limit=100)
-post = posts[0]
-post_content = post['content']
-# print("\nNumber of Posts:", len(posts), "\nContent:\n", post_content, "\n")
 
-soup = BeautifulSoup(post_content, 'html.parser')
+for post in posts:
+    # post = posts[0]
+    post_content = post['content']
+    # print("\nNumber of Posts:", len(posts), "\nContent:\n", post_content, "\n")
 
-# extract text from HTML content
-post_text = soup.get_text()
-print("\n", post_text, "\n")
+    # soup = BeautifulSoup(post_content, 'html.parser')
+
+    # # extract text from HTML content
+    # post_text = soup.get_text()
+    
+    post_text = html_text.extract_text(post_content)
+    # print("---------------------------\n", post_text, "\n")
