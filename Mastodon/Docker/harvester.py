@@ -7,6 +7,8 @@ import couchdb
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import copy
 
+ATTEMPTS_BEFORE_GIVE_UP = 20
+
 # Mastodon info
 URLS = [
 
@@ -27,8 +29,7 @@ URLS = [
 
 # CouchDB info
 db_url = 'http://admin:mysecretpassword@172.26.135.198:5984/'
-
-# dbname = 'mastodon_test_db'
+dbname = 'mastodon_test_db'
 
 def pushToCouch(data):
     """
@@ -69,7 +70,6 @@ def pushToCouch(data):
 
         # Handle any other error
         except Exception as e:
-            print(e)
             break
 
 def is_post_in_db(post_id):
@@ -120,14 +120,22 @@ def getRecent(start):
         params = {'limit': 40}
 
         while True:
-            # Send API request with parameters
-            r = requests.get(server_url, params=params)
-            posts = json.loads(r.text)
+
+            try: 
+                # Send API request with parameters
+                r = requests.get(server_url, params=params)
+                posts = json.loads(r.text)
+
+            # This triggers from Mastodon's rate limiting 
+            except:
+                print("Push to CouchDB error, probably related to rate limit")
+                break
 
             if len(posts) == 0:
                 break
 
             for post in posts:
+
                 # Using UTC timezone everywhere for easy comparison
                 timestamp = pd.Timestamp(post['created_at'], tz='utc')
 
@@ -174,18 +182,21 @@ def main_function():
     sid = SentimentIntensityAnalyzer()
     start_time = pd.Timestamp('now', tz='utc')
 
-    # Sets are used to avoid checking recent duplicates on server
+    # Sets are used to avoid checking known local duplicates on server
     set_1 = set()
     set_2 = set()
 
     # The main loop that continuously polls for new posts
     while True:
+
         try:
             # Get the recent posts from the database
             posts = getRecent(start_time)
+
         except Exception as e3:
             # If there's an error, set posts to an empty list
             posts = []
+            print("Failed to get recent posts.")
 
         # If there are new posts, process them
         if len(posts) > 0:
@@ -219,9 +230,23 @@ def main_function():
                         'region':posts.loc[i]['region_posted'],
                     }
 
-                    # Push the post JSON object to the database
-                    pushToCouch(post_json)
-                    print("Pushed")
+                    attempts_left = ATTEMPTS_BEFORE_GIVE_UP
+
+                    # Prevents temporary CouchDB issues from breaking system.
+                    while True:
+
+                        attempts_left -= 1
+                        if attempts_left <= 0:
+                            print("Giving up pushing post")
+                            break
+
+                        try:
+                            # Push the post JSON object to the database
+                            pushToCouch(post_json)
+                            break
+
+                        except:
+                            print("Failed to push a post to CouchDB")
 
             # Update the set of processed posts and clear the temporary set
             set_1 = copy.deepcopy(set_2)
