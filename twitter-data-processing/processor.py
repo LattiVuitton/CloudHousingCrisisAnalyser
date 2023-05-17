@@ -15,7 +15,7 @@ nltk.download('vader_lexicon')
 username = twitterDataConfig.username_db
 password = twitterDataConfig.password_db
 db = twitterDataConfig.twitter_data_db
-url = "http://" + username + ":" + password + "@" + db
+url = "http://" + username + ":" + password + "@" + db 
 headers = {'Content-type':'application/json'}
 
 #get and parse twitter data
@@ -29,7 +29,7 @@ irony_model = tweetnlp.Irony()
 hate_speech_model = tweetnlp.Hate()
 offensive_speech_model = tweetnlp.Offensive()
 emotion_detector_model = tweetnlp.Emotion()
-sentiment_model = tweetnlp.Sentiment()
+
 
 tweet_data = []
 tweet_count = 0
@@ -67,8 +67,6 @@ for prefix, event, value in parser:
             tweet['offensive'] = offensive = offensive_speech_model.predict(tweet['text'])['label']
             
             tweet['emotion'] = emotion = emotion_detector_model.predict(tweet['text'])['label']
-
-            tweet['tweet-nlp-senti'] = sentiment2 = sentiment_model.predict(tweet['text'])['label']
           
             to_send['docs'].append(tweet)
 
