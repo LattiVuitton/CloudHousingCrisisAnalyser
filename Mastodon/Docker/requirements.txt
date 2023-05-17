@@ -3,3 +3,4 @@ html-text
 pandas
 requests
 nltk
+tweetnlp
