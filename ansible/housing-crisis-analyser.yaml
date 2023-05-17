@@ -1,10 +1,21 @@
-- hosts: worker-server-2
+- hosts: worker-server-1
   gather_facts: true
-  vars:
-    remote_twitter_data_dir: /home/ubuntu/twitter-data-processing
-    local_twitter_data_dir: ../twitter-data-processing
-
+  become: yes
   roles:
     - role: common
-    - role: twitter-data-processing
+    - role: install-docker
+    - role: install-portainer
+    - role: deploy-docker-containers
+
+
+# - hosts: worker-server-2
+#   gather_facts: true
+#   vars:
+#     remote_twitter_data_dir: /home/ubuntu/twitter-data-processing
+#     local_twitter_data_dir: ../twitter-data-processing
+
+#   roles:
+#     #- role: twitter-data-processing
+
+
 

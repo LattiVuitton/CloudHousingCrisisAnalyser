@@ -15,7 +15,7 @@ nltk.download('vader_lexicon')
 username = twitterDataConfig.username_db
 password = twitterDataConfig.password_db
 db = twitterDataConfig.twitter_data_db
-url = "http://" + username + ":" + password + "@" + db + "/twitter_test_data/_bulk_docs"
+url = "http://" + username + ":" + password + "@" + db + "/twitter_data/_bulk_docs"
 headers = {'Content-type':'application/json'}
 
 #get and parse twitter data

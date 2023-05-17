@@ -1,16 +1,32 @@
-[test-pw]
-ubuntu@172.26.135.198
+# [test-pw]
+# ubuntu@172.26.135.198
 
-[test-pw:vars]
-ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-ansible_ssh_private_key_file=~/.ssh/cloud_key
-ansible_user=ubuntu
+# [test-pw:vars]
+# ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+# ansible_ssh_private_key_file=~/.ssh/cloud_key
+# ansible_user=ubuntu
 
 
 [worker-server-2]
-ubuntu@172.26.129.36
+ubuntu@172.26.129.244
 
 [worker-server-2:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-ansible_ssh_private_key_file=~/.ssh/cloud_key
+ansible_ssh_private_key_file=../keys/team_private.key
+ansible_user=ubuntu
+
+[worker-server-1]
+ubuntu@172.26.132.140
+
+[worker-server-1:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=../keys/team_private.key
+ansible_user=ubuntu
+
+[master-server]
+ubuntu@172.26.136.93
+
+[master-server:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=../keys/team_private.key
 ansible_user=ubuntu
