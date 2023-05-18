@@ -29,8 +29,8 @@ URLS = [
 ]
 
 # CouchDB info
-db_url = 'http://admin:mysecretpassword@172.26.135.198:5984/'
-dbname = 'mastodon_test_4'
+db_url = 'http://admin:password@172.26.132.178:5984/'
+dbname = 'mastodon_data'
 
 # Offensive words for tweet toxicity analysis
 script_dir = os.path.dirname(__file__)
@@ -213,7 +213,7 @@ def main_function():
             # Get the recent posts from the database
             posts = getRecent(start_time)
 
-        except Exception as e3:
+        except Exception:
             # If there's an error, set posts to an empty list
             posts = []
             print("Failed to get recent posts.")
