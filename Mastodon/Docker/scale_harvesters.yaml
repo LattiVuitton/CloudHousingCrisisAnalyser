@@ -1,0 +1,29 @@
+# BASIC IDEA (Still not sure how to trigger scaling)
+---
+- name: Scale Docker containers
+  hosts: target_hosts # Not sure if multi-server or not yet
+  vars:
+    docker_image: image_7
+    container_name: your-container-name
+    target_container_count: 3 # Find a way to change this on trigger
+  tasks:
+    - name: Get currently running containers
+      shell: docker ps --filter "name={{ container_name }}" --format "{{ .Names }}"
+      register: running_containers
+      changed_when: false
+
+    - name: Scale up containers
+      docker_container:
+        name: "{{ container_name }}_{{ item }}"
+        image: "{{ docker_image }}"
+        state: started
+      loop: "{{ range(target_container_count - running_containers.stdout_lines|length)|list }}"
+      when: target_container_count > running_containers.stdout_lines|length
+
+    - name: Scale down containers
+      docker_container:
+        name: "{{ item }}"
+        state: stopped
+        remove: yes
+      loop: "{{ running_containers.stdout_lines[target_container_count:] }}"
+      when: target_container_count < running_containers.stdout_lines|length

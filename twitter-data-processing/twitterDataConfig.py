@@ -2,4 +2,4 @@
 
 username_db = "user"
 password_db = "pwd"
-twitter_data_db = "123.45.678.9:8888/db_name/_bulk_docs"
+twitter_data_db = "123.45.678.9:8888"

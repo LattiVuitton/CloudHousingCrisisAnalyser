@@ -1,5 +1,0 @@
-requests
-ijson
-tweetnlp
-nltk
-pandas

@@ -1,0 +1,5 @@
+couchdb
+html-text
+pandas
+requests
+nltk
