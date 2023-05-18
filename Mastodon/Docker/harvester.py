@@ -66,7 +66,7 @@ def pushToCouch(data):
 
         # Handle a conflict error if it occurs
         except couchdb.http.ResourceConflict:
-            print("Conflicted managed")
+            print("Conflict managed")
             time.sleep(1)
 
         # Handle any other error
@@ -186,7 +186,6 @@ def main_function():
     hate_speech_model = tweetnlp.Hate()
     offensive_speech_model = tweetnlp.Offensive()
     emotion_detector_model = tweetnlp.Emotion()
-    sentiment_model = tweetnlp.Sentiment()
 
     # Time at load
     start_time = pd.Timestamp('now', tz='utc')
