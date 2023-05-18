@@ -18,6 +18,7 @@
       - nltk
       - pandas
 
+
 - name: Copy twitterDataConfig file
   ansible.builtin.copy:
     src: "{{ local_twitter_data_dir }}/twitterDataConfig.py"
@@ -27,6 +28,11 @@
   ansible.builtin.copy:
     src: "{{ local_twitter_data_dir }}/processor.py"
     dest: "{{ remote_twitter_data_dir }}/processor.py"
+
+- name: Copy bad-words file
+  ansible.builtin.copy:
+    src: "{{ local_twitter_data_dir }}/bad-words.txt"
+    dest: "{{ remote_twitter_data_dir }}/bad-words.txt"
 
 - name: Save twitter data from dropbox
   command: curl -L -o "{{ remote_twitter_data_dir }}/twitter-data.zip" https://www.dropbox.com/s/r6l4ke6h858bzph/twitter-huge.json.zip?dl=0
