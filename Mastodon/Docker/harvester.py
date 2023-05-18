@@ -6,7 +6,6 @@ import html_text
 import couchdb
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import copy
-import tweetnlp
 
 ATTEMPTS_BEFORE_GIVE_UP = 5
 
@@ -182,10 +181,6 @@ def main_function():
 
     # load all text classification models
     sid = SentimentIntensityAnalyzer()
-    irony_model = tweetnlp.Irony()
-    hate_speech_model = tweetnlp.Hate()
-    offensive_speech_model = tweetnlp.Offensive()
-    emotion_detector_model = tweetnlp.Emotion()
 
     # Time at load
     start_time = pd.Timestamp('now', tz='utc')
@@ -227,10 +222,6 @@ def main_function():
 
                     # Get the sentiment score of the post text
                     sentiment = sid.polarity_scores(post_text)['compound']
-                    irony = irony_model.predict(post_text)['label']
-                    hate = hate_speech_model.predict(post_text)['label']
-                    offensive = offensive_speech_model.predict(post_text)['label']
-                    emotion = emotion_detector_model.predict(post_text)['label']
 
                     # Create a JSON object with the post information
                     post_json = {
@@ -242,10 +233,7 @@ def main_function():
 
                         # Sentiment models
                         'sentiment':sentiment,
-                        'irony':irony,
-                        'hate':hate,
-                        'offensive':offensive,
-                        'emotion': emotion,
+
                     }
 
                     attempts_left = ATTEMPTS_BEFORE_GIVE_UP
