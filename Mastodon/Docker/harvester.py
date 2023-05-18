@@ -6,6 +6,7 @@ import html_text
 import couchdb
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import copy
+import os
 
 ATTEMPTS_BEFORE_GIVE_UP = 5
 
@@ -30,6 +31,22 @@ URLS = [
 # CouchDB info
 db_url = 'http://admin:mysecretpassword@172.26.135.198:5984/'
 dbname = 'mastodon_test_4'
+
+# Offensive words for tweet toxicity analysis
+script_dir = os.path.dirname(__file__)
+csv_file_path =  os.path.join(script_dir, "bad-words.txt")
+
+# Creating offensive word list
+offensive_words = []
+with open(csv_file_path, "r") as file:
+    string = file.read().split(",")  # Read the file and store its contents as a string
+    for i in string:
+        offensive_words.append(i)
+
+# Check if text_data contains offensive words
+def contain_offensive(text_data):
+    text_data = text_data.lower()
+    return any(text in text_data for text in offensive_words)
 
 def pushToCouch(data):
     """
@@ -222,6 +239,12 @@ def main_function():
 
                     # Get the sentiment score of the post text
                     sentiment = sid.polarity_scores(post_text)['compound']
+                    if posts.loc[i]['language'] == 'en':
+                        # Boolean value
+                        offensive = contain_offensive(post_text)
+                    else:
+                        # List of words not really valid for non-English
+                        offensive = None
 
                     # Create a JSON object with the post information
                     post_json = {
@@ -233,7 +256,7 @@ def main_function():
 
                         # Sentiment models
                         'sentiment':sentiment,
-
+                        'offensive':offensive
                     }
 
                     attempts_left = ATTEMPTS_BEFORE_GIVE_UP
