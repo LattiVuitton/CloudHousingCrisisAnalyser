@@ -6,7 +6,7 @@ import requests
 import nltk
 from datetime import datetime
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-import tweetnlp
+#import tweetnlp
 import twitterDataConfig
 
 nltk.download('vader_lexicon')
@@ -25,11 +25,11 @@ twitter_file_path = os.path.join(script_dir, twitter_rel_path)
 parser = ijson.parse(open(twitter_file_path))
 
 #load all tweet text classification models
-irony_model = tweetnlp.Irony()
-hate_speech_model = tweetnlp.Hate()
-offensive_speech_model = tweetnlp.Offensive()
-emotion_detector_model = tweetnlp.Emotion()
-sentiment_model = tweetnlp.Sentiment()
+# irony_model = tweetnlp.Irony()
+# hate_speech_model = tweetnlp.Hate()
+# offensive_speech_model = tweetnlp.Offensive()
+# emotion_detector_model = tweetnlp.Emotion()
+
 
 tweet_data = []
 tweet_count = 0
@@ -60,15 +60,13 @@ for prefix, event, value in parser:
                 tweet['nltk_sentiment'] = 0
             valid_tweet_count+=1
             # tweet classifications
-            tweet['irony'] = irony = irony_model.predict(tweet['text'])['label']
+            # tweet['irony'] = irony = irony_model.predict(tweet['text'])['label']
             
-            tweet['hate'] = hate = hate_speech_model.predict(tweet['text'])['label']
+            # tweet['hate'] = hate = hate_speech_model.predict(tweet['text'])['label']
         
-            tweet['offensive'] = offensive = offensive_speech_model.predict(tweet['text'])['label']
+            # tweet['offensive'] = offensive = offensive_speech_model.predict(tweet['text'])['label']
             
-            tweet['emotion'] = emotion = emotion_detector_model.predict(tweet['text'])['label']
-
-            tweet['tweet-nlp-senti'] = sentiment2 = sentiment_model.predict(tweet['text'])['label']
+            # tweet['emotion'] = emotion = emotion_detector_model.predict(tweet['text'])['label']
           
             to_send['docs'].append(tweet)
 
