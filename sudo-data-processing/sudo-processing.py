@@ -9,7 +9,7 @@ sudo_rental_data_path = 'sudo-data-processing/Sudo-Rental-Data/'
 username = sudoDataConfig.username_db
 password = sudoDataConfig.password_db
 db = sudoDataConfig.sudo_data_db
-url = "http://" + username + ":" + password + "@" + db
+url = "http://" + username + ":" + password + "@" + db + "/sudo_data"
 headers = {'Content-type':'application/json'}
 
 

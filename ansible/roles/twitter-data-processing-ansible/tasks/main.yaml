@@ -38,6 +38,6 @@
   command: mv "{{ remote_twitter_data_dir }}/mnt/ext100/twitter-huge.json" "{{ remote_twitter_data_dir }}"
 
 - name: Run twitter-data-processing script
-  command: python3 "{{ remote_twitter_data_dir }}/processor.py" > "{{ remote_twitter_data_dir }}/log_file.txt"
+  command: nohup python3 "{{ remote_twitter_data_dir }}/processor.py" &
 
 
