@@ -7,7 +7,6 @@
     - role: install-portainer
     - role: deploy-docker-containers
 
-
 - hosts: worker-server-2
   gather_facts: true
   vars:
@@ -15,7 +14,18 @@
     local_twitter_data_dir: ../twitter-data-processing
 
   roles:
-    - role: twitter-data-processing
+    - role: twitter-data-processing-ansible
+
+- hosts: worker-server-1
+  gather_facts: true
+  become: yes
+  vars:
+    remote_sudo_data_dir: /home/ubuntu
+    local_sudo_data_dir: ../sudo-data-processing
+  roles:
+    - role: sudo-data-processing-ansible
+
+
 
 
 
