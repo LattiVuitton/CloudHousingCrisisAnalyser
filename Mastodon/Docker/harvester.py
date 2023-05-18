@@ -33,6 +33,7 @@ db_url = 'http://admin:password@172.26.132.178:5984/'
 dbname = 'mastodon_data'
 
 # Offensive words for tweet toxicity analysis
+# Bad-words.txt should be in the docker folder on server
 script_dir = os.path.dirname(__file__)
 csv_file_path =  os.path.join(script_dir, "bad-words.txt")
 
