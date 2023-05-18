@@ -27,8 +27,8 @@ start_date = "2022-01-01"
 end_date = "2023-05-17"
 
 # CouchDB info
-db_url = 'http://admin:mysecretpassword@172.26.135.198:5984/'
-dbname = 'mastodon_test_4'
+db_url = 'http://admin:password@172.26.131.253:5984/'
+dbname = 'historical_economic_data'
 
 def pushToCouch(json_string):
     """
@@ -81,9 +81,11 @@ def main_function():
 
         # Iterate over each row in the data and extract the required information
         for index, row in data.iterrows():
+
             date = index.strftime("%Y-%m-%d")
+            hour = index.strftime("%H")
             closing_price = row["Close"]
-            price_history.append({"date": date, "closingPrice": closing_price})
+            price_history.append({"date": date, "hour": hour, "closingPrice": closing_price})
 
         # Create a dictionary to store the data for each ticker
         ticker_data = {
