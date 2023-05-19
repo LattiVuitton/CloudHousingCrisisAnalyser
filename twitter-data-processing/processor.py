@@ -123,7 +123,7 @@ for prefix, event, value in parser:
         req = requests.post(url, headers = headers, data = json_to_send)
         if req.status_code != 201:
             print("ERROR ", req.status_code)
-            break
+            print("Response content:", req.content)
         #re-initialise
         to_send = {"docs":[]}
 
@@ -137,9 +137,9 @@ if len(to_send['docs']) > 0:
 
 print("Total sending time: ", datetime.now() - start)
 print("tweet_count: " , tweet_count, " valid_tweet_count: ", valid_tweet_count)
-tweet_df = pd.DataFrame(tweet_data)
-print(tweet_df)
-print(tweet_df.columns)
+# tweet_df = pd.DataFrame(tweet_data)
+# print(tweet_df)
+# print(tweet_df.columns)
 
      
 
