@@ -45,6 +45,8 @@ csv_file_path =  os.path.join(script_dir, "bad-words.txt")
 
 offensive_words = []
 
+sending_errors = []
+
 with open(csv_file_path, "r") as file:
     string = file.read().split(",")  # Read the file and store its contents as a string
     for i in string:
@@ -122,8 +124,7 @@ for prefix, event, value in parser:
         json_to_send = json.dumps(to_send)
         req = requests.post(url, headers = headers, data = json_to_send)
         if req.status_code != 201:
-            print("ERROR ", req.status_code)
-            print("Response content:", req.content)
+            sending_errors.append(json_to_send)
         #re-initialise
         to_send = {"docs":[]}
 
@@ -132,8 +133,16 @@ if len(to_send['docs']) > 0:
     json_to_send = json.dumps(to_send)
     req = requests.post(url, headers = headers, data = json_to_send)
     if req.status_code != 201:
-        print("ERROR", req.status_code)
-        print("Response content:", req.content)
+        sending_errors.append(json_to_send)
+
+#re-try all those with sending errors one more time
+if len(sending_errors) > 0:
+    for i in sending_errors:
+        json_to_send = json.dumps(i)
+        eq = requests.post(url, headers = headers, data = json_to_send)
+        if req.status_code != 201:
+            print("ERROR", req.status_code)
+            print("Response content:", req.content)
 
 print("Total sending time: ", datetime.now() - start)
 print("tweet_count: " , tweet_count, " valid_tweet_count: ", valid_tweet_count)
