@@ -6,12 +6,14 @@ import sudoDataConfig
 
 
 sudo_rental_data_path = 'sudo-data-processing/Sudo-Rental-Data/'
+sudo_income_data_path = 'sudo-data-processing/Sudo-Income-Data/'
 username = sudoDataConfig.username_db
 password = sudoDataConfig.password_db
 db = sudoDataConfig.sudo_data_db
-url = "http://" + username + ":" + password + "@" + db + "/sudo_data"
+url = "http://" + username + ":" + password + "@" + db  
 headers = {'Content-type':'application/json'}
-
+housing_data = "/sudo_rental_data"
+income_data = "/sudo_income_data"
 
 import numpy as np
 import pandas as pd
@@ -36,10 +38,8 @@ for root, dirs, files in os.walk(sudo_rental_data_path):
                     doc['_id'] = str(doc['properties']['geography_name'])
                     valid_data.append(doc)
 
-                #bulk_data = {'docs': valid_data}
-
                     # Send the data to CouchDB
-                    response = requests.post(url, headers=headers, json=doc)
+                    response = requests.post(url + housing_data, headers=headers, json=doc)
 
                     # Check if the POST request was successful
                     if response.status_code == 201:
@@ -47,3 +47,26 @@ for root, dirs, files in os.walk(sudo_rental_data_path):
                     else:
                         print(f'Failed to upload {filename}. Status code: {response.status_code}. Message: {response.text}')
  
+
+# Iterate over each file in the directory and subdirectories
+for root, dirs, files in os.walk(sudo_income_data_path):
+    for filename in files:       
+        if 'Median-Income-Aus-SA3.json' in filename:
+            # Full file path
+            file_path = os.path.join(root, filename)
+            # Load the JSON data
+            with open(file_path, 'r') as f:
+                data = json.load(f)
+           
+            for loc_doc in data['features']:
+                #set doc id by statistical area 3 code
+                loc_doc['_id'] = str(loc_doc['properties']['sa3_code_2021'])
+
+                # Send the data to CouchDB
+                response = requests.post(url + income_data, headers=headers, json=loc_doc)
+
+                # Check if the POST request was successful
+                if response.status_code == 201:
+                    print(f'Successfully uploaded {filename} to CouchDB')
+                else:
+                    print(f'Failed to upload {filename}. Status code: {response.status_code}. Message: {response.text}')
