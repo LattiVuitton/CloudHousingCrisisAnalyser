@@ -1,4 +1,5 @@
 ---
+# TODO: Remove this network if not needed
 - name: Create Network
   community.docker.docker_network:
     name: mrc_test_app_network
@@ -22,16 +23,6 @@
       COUCHDB_PASSWORD: "password"
     volumes:
       - couchdb_data:/opt/couchdb/data
-    restart_policy: always
-
-- name: Deploy mrc-test-app 
-  community.docker.docker_container:
-    name: mrc-test-app
-    image: navdeep16/mrc-test-app:1.1
-    ports:
-      - "3000:3000"
-    networks:
-      - name: mrc_test_app_network
     restart_policy: always
 
 - name: Create twitter_data database

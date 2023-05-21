@@ -1,0 +1,13 @@
+---
+# TODO: TBR
+# - name: Debug hostvars
+#   debug:
+#     var: hostvars[groups['master-server'][0]]['worker_token']
+
+- name: Add Workers to the Docker Swarm
+  community.docker.docker_swarm:
+    state: join
+    advertise_addr: "{{ ansible_host }}"
+    join_token: "{{ hostvars[groups['master-server'][0]]['worker_token']['stdout'] }}"
+    remote_addrs: [ "{{ hostvars[groups['master-server'][0]]['ansible_default_ipv4']['address'] }}:2377" ]
+  tags: swarm

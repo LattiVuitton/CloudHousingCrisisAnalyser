@@ -1,0 +1,7 @@
+---
+# TODO: Deploying couchDb containers
+
+- name: Initialize docker swarm services
+  hosts: master-server
+  roles:
+    - deploy-swarm-services
