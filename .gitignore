@@ -1,2 +1,5 @@
 # Keep passwords safe
 passwords.py
+
+# Ignoring node modules for backend and frontend
+Hieu_Nick/frontend/node_modules 
