@@ -1,0 +1,41 @@
+#TODO: TBR - Only for testing purpose
+# - name: Deploy mrc-test-app
+#   community.docker.docker_swarm_service:
+#     name: mrc_test-app
+#     image: navdeep16/mrc-test-app:1.2
+#     publish:
+#       - published_port: 3001
+#         target_port: 3000
+#     mode: replicated
+#     replicas: 1
+#     state: present
+
+- name: Deploy Mastodon Harvester Service 
+  community.docker.docker_swarm_service:
+    name: mastodon_harvester
+    image: latti31/mastodon_harvester:latest
+    mode: replicated
+    replicas: 1
+    state: present
+
+- name: Deploy Node Backend Service 
+  community.docker.docker_swarm_service:
+    name: backend
+    image: hieuhuung4/node_backend:latest
+    publish:
+      - published_port: 5000
+        target_port: 5000
+    mode: replicated
+    replicas: 1
+    state: present
+
+- name: Deploy React Frontend Service 
+  community.docker.docker_swarm_service:
+    name: frontend
+    image: hieuhuung4/react_frontend:latest
+    publish:
+      - published_port: 3000
+        target_port: 3000
+    mode: replicated
+    replicas: 1
+    state: present
