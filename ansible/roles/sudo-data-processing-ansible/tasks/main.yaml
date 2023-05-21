@@ -19,11 +19,6 @@
     src: "{{ local_sudo_data_dir }}"
     dest: "{{ remote_sudo_data_dir }}"
 
-- name: Copy processor file
-  ansible.builtin.copy:
-    src: "{{ local_sudo_data_dir }}/sudo-processor.py"
-    dest: "{{ remote_sudo_data_dir }}/sudo-processor.py"
-
     
 - name: Install python library requirements
   ansible.builtin.pip:
