@@ -27,8 +27,8 @@ start_date = "2022-01-01"
 end_date = "2023-05-17"
 
 # CouchDB info
-db_url = 'http://admin:password@172.26.131.253:5984/'
-dbname = 'historical_economic_data'
+db_url = 'http://admin:password@172.26.132.178:5984/'
+dbname = 'economic_data'
 
 def pushToCouch(json_string):
     """
