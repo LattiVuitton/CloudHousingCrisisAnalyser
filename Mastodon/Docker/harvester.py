@@ -6,7 +6,7 @@ import html_text
 import couchdb
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import copy
-import tweetnlp
+import os
 
 ATTEMPTS_BEFORE_GIVE_UP = 5
 
@@ -29,8 +29,25 @@ URLS = [
 ]
 
 # CouchDB info
-db_url = 'http://admin:mysecretpassword@172.26.135.198:5984/'
-dbname = 'mastodon_test_4'
+db_url = 'http://admin:password@172.26.132.178:5984/'
+dbname = 'mastodon_data'
+
+# Offensive words for tweet toxicity analysis
+# Bad-words.txt should be in the docker folder on server
+script_dir = os.path.dirname(__file__)
+csv_file_path =  os.path.join(script_dir, "bad-words.txt")
+
+# Creating offensive word list
+offensive_words = []
+with open(csv_file_path, "r") as file:
+    string = file.read().split(",")  # Read the file and store its contents as a string
+    for i in string:
+        offensive_words.append(i)
+
+# Check if text_data contains offensive words
+def contain_offensive(text_data):
+    text_data = text_data.lower()
+    return any(text in text_data for text in offensive_words)
 
 def pushToCouch(data):
     """
@@ -66,7 +83,7 @@ def pushToCouch(data):
 
         # Handle a conflict error if it occurs
         except couchdb.http.ResourceConflict:
-            print("Conflicted managed")
+            print("Conflict managed")
             time.sleep(1)
 
         # Handle any other error
@@ -182,11 +199,6 @@ def main_function():
 
     # load all text classification models
     sid = SentimentIntensityAnalyzer()
-    irony_model = tweetnlp.Irony()
-    hate_speech_model = tweetnlp.Hate()
-    offensive_speech_model = tweetnlp.Offensive()
-    emotion_detector_model = tweetnlp.Emotion()
-    sentiment_model = tweetnlp.Sentiment()
 
     # Time at load
     start_time = pd.Timestamp('now', tz='utc')
@@ -202,7 +214,7 @@ def main_function():
             # Get the recent posts from the database
             posts = getRecent(start_time)
 
-        except Exception as e3:
+        except Exception:
             # If there's an error, set posts to an empty list
             posts = []
             print("Failed to get recent posts.")
@@ -228,10 +240,12 @@ def main_function():
 
                     # Get the sentiment score of the post text
                     sentiment = sid.polarity_scores(post_text)['compound']
-                    irony = irony_model.predict(post_text)['label']
-                    hate = hate_speech_model.predict(post_text)['label']
-                    offensive = offensive_speech_model.predict(post_text)['label']
-                    emotion = emotion_detector_model.predict(post_text)['label']
+                    if posts.loc[i]['language'] == 'en':
+                        # Boolean value
+                        offensive = contain_offensive(post_text)
+                    else:
+                        # List of words not really valid for non-English
+                        offensive = None
 
                     # Create a JSON object with the post information
                     post_json = {
@@ -243,10 +257,7 @@ def main_function():
 
                         # Sentiment models
                         'sentiment':sentiment,
-                        'irony':irony,
-                        'hate':hate,
-                        'offensive':offensive,
-                        'emotion': emotion,
+                        'offensive':offensive
                     }
 
                     attempts_left = ATTEMPTS_BEFORE_GIVE_UP

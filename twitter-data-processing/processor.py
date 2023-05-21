@@ -6,7 +6,6 @@ import requests
 import nltk
 from datetime import datetime
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-import tweetnlp
 import twitterDataConfig
 
 nltk.download('vader_lexicon')
@@ -24,13 +23,6 @@ twitter_rel_path = "twitter-huge.json"
 twitter_file_path = os.path.join(script_dir, twitter_rel_path)
 parser = ijson.parse(open(twitter_file_path))
 
-#load all tweet text classification models
-irony_model = tweetnlp.Irony()
-hate_speech_model = tweetnlp.Hate()
-offensive_speech_model = tweetnlp.Offensive()
-emotion_detector_model = tweetnlp.Emotion()
-sentiment_model = tweetnlp.Sentiment()
-
 tweet_data = []
 tweet_count = 0
 valid_tweet_count = 0
@@ -42,11 +34,27 @@ context_annotation = []
 geo_bbox = []
 to_send = {"docs":[]}
 
-BATCH_SIZE = 5000
+BATCH_SIZE = 500
 
 start = datetime.now()
 
 sid = SentimentIntensityAnalyzer()
+
+#to classify whether tweets are offensive
+csv_file_path =  os.path.join(script_dir, "bad-words.txt")
+
+offensive_words = []
+
+sending_errors = []
+
+with open(csv_file_path, "r") as file:
+    string = file.read().split(",")  # Read the file and store its contents as a string
+    for i in string:
+        offensive_words.append(i)
+
+def contain_offensive(tweet):
+    tweet = tweet.lower()
+    return any(text in tweet for text in offensive_words)
 
 for prefix, event, value in parser:
 
@@ -54,22 +62,17 @@ for prefix, event, value in parser:
         if valid == True: #if previous tweet was valid i.e. have geo id
             tweet['context_annotation'] = context_annotation
             tweet['geo_bbox'] = geo_bbox
+            if tweet['lang'] == 'en':
+                tweet['offensive'] = contain_offensive(tweet['text'])
+            else:
+                # List of words not really valid for non-English
+                offensive = None
             try:
                 tweet['nltk_sentiment'] = sentiment = sid.polarity_scores(tweet['text'])['compound']
             except:
                 tweet['nltk_sentiment'] = 0
             valid_tweet_count+=1
-            # tweet classifications
-            tweet['irony'] = irony = irony_model.predict(tweet['text'])['label']
-            
-            tweet['hate'] = hate = hate_speech_model.predict(tweet['text'])['label']
-        
-            tweet['offensive'] = offensive = offensive_speech_model.predict(tweet['text'])['label']
-            
-            tweet['emotion'] = emotion = emotion_detector_model.predict(tweet['text'])['label']
 
-            tweet['tweet-nlp-senti'] = sentiment2 = sentiment_model.predict(tweet['text'])['label']
-          
             to_send['docs'].append(tweet)
 
             tweet_data.append(tweet)
@@ -121,8 +124,7 @@ for prefix, event, value in parser:
         json_to_send = json.dumps(to_send)
         req = requests.post(url, headers = headers, data = json_to_send)
         if req.status_code != 201:
-            print("ERROR ", req.status_code)
-            break
+            sending_errors.append(json_to_send)
         #re-initialise
         to_send = {"docs":[]}
 
@@ -131,14 +133,23 @@ if len(to_send['docs']) > 0:
     json_to_send = json.dumps(to_send)
     req = requests.post(url, headers = headers, data = json_to_send)
     if req.status_code != 201:
-        print("ERROR", req.status_code)
-        print("Response content:", req.content)
+        sending_errors.append(json_to_send)
+
+#re-try all those with sending errors one more time
+if len(sending_errors) > 0:
+    for i in sending_errors:
+        json_to_send = json.dumps(i)
+        eq = requests.post(url, headers = headers, data = json_to_send)
+        if req.status_code != 201:
+            print("ERROR", req.status_code)
+            print("Response content:", req.content)
 
 print("Total sending time: ", datetime.now() - start)
 print("tweet_count: " , tweet_count, " valid_tweet_count: ", valid_tweet_count)
 # tweet_df = pd.DataFrame(tweet_data)
 # print(tweet_df)
 # print(tweet_df.columns)
+
      
 
     

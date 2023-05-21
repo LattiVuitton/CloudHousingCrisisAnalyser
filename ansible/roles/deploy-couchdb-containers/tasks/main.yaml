@@ -31,3 +31,6 @@
 - name: Create mastodon_data database
   command: curl -X PUT "http://admin:password@localhost:5984/mastodon_data"
 
+- name: Create sudo_data database
+  command: curl -X PUT "http://admin:password@localhost:5984/sudo_data"
+

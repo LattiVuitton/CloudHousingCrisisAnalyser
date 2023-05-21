@@ -26,3 +26,6 @@
     key: '{{ item }}'
   with_file:
     - ../keys/team_public.key
+
+- name: Update private key permissions
+  command: sudo chmod 600 ../keys/team_private.key

@@ -1,0 +1,13 @@
+---
+- name: Copy twitterDataConfig file
+  ansible.builtin.copy:
+    src: "{{ local_sudo_data_dir }}"
+    dest: "{{ remote_sudo_data_dir }}"
+
+- name: Install python library requirements
+  ansible.builtin.pip:
+    name: 
+      - pandas
+
+- name: Run sudo-data-processing script
+  command: nohup python3 "{{ remote_sudo_data_dir }}/sudo-data-processing/sudo-processing.py" &
