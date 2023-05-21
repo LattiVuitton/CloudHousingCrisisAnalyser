@@ -1,0 +1,13 @@
+- name: Scale mrc-test-app
+  community.docker.docker_swarm_service:
+    # Sample of a service to be scaled.
+    # name: mrc_test-app
+    # image: navdeep16/mrc-test-app:1.2
+    # publish:
+    #   - published_port: 3001
+    #     target_port: 3000
+    # mode: replicated
+    # replicas: 6
+    # state: present
+
+  # TODO: Include mastodon_harvester, frontend and backend service here
