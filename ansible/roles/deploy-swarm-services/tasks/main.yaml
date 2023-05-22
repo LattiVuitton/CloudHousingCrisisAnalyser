@@ -13,7 +13,7 @@
 - name: Deploy Mastodon Harvester Service 
   community.docker.docker_swarm_service:
     name: mastodon_harvester
-    image: latti31/mastodon_harvester:latest
+    image: latti31/harvester_rebuild:latest
     mode: replicated
     replicas: 1
     state: present
