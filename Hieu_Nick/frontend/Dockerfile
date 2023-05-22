@@ -1,15 +1,16 @@
-FROM node:latest AS build
-WORKDIR /build
+FROM node:latest
 
-COPY package.json package.json
-COPY package-lock.json package-lock.json
-# RUN apk add git
-RUN npm ci --force
+RUN mkdir -p /home/frontend-app
 
-COPY public/ public
-COPY src/ src
-RUN npm run build
+COPY ./build /home/frontend-app/build
+COPY ./public /home/frontend-app/public
+COPY ./src /home/frontend-app/src
+COPY package-lock.json /home/frontend-app/
+COPY package.json /home/frontend-app/
+COPY temp.html /home/frontend-app/
 
-FROM httpd:alpine
-WORKDIR /var/www/html
-COPY --from=build /build/build/ .
+WORKDIR /home/frontend-app
+
+RUN npm install --force
+
+CMD ["npm","run", "start"]
