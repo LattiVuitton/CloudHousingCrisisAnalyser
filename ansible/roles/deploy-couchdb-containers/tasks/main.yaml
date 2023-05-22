@@ -23,12 +23,15 @@
         - couchdb_data:/opt/couchdb/data
       restart_policy: always
 
-- name: Create twitter_data database
-  command: curl -X PUT "http://admin:password@localhost:5984/twitter_data"
+- name: Create twitter data database
+  command: curl -X PUT "http://admin:password@localhost:5984/twitter_data_copy"
 
-- name: Create mastodon_data database
-  command: curl -X PUT "http://admin:password@localhost:5984/mastodon_data"
+- name: Create mastodon data database
+  command: curl -X PUT "http://admin:password@localhost:5984/mastodon_data_copy"
 
-- name: Create sudo_data database
-  command: curl -X PUT "http://admin:password@localhost:5984/sudo_data"
+- name: Create sudo income data database
+  command: curl -X PUT "http://admin:password@localhost:5984/sudo_income_data_copy"
+
+  - name: Create sudo rental data database
+  command: curl -X PUT "http://admin:password@localhost:5984/sudo_rental_data_copy"
 
