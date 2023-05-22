@@ -1,0 +1,5 @@
+---
+- name: Deploy CouchDb Docker Containers
+  hosts: default-couchdb-servers
+  roles:
+    - role: deploy-couchdb-containers
