@@ -39,7 +39,7 @@ def update_key_names(data):
 # Iterate over each file in the directory and subdirectories
 for root, dirs, files in os.walk(sudo_rental_data_path):
     for filename in files:       
-        if 'Index_Shape' in filename:  # Adjusted file name condition
+        if 'Polygon' in filename:  # Adjusted file name condition
             # Full file path
             file_path = os.path.join(root, filename)
             # Load the JSON data
@@ -63,12 +63,12 @@ for root, dirs, files in os.walk(sudo_rental_data_path):
                     response = requests.post(url + housing_data, headers=headers, json=doc)
 
                     # Check if the POST request was successful
-                    if response.status_code == 201:
+                    if response.status_code == 201: 
                         print(f'Successfully uploaded {filename} to CouchDB')
                     else:
                         print(f'Failed to upload {filename}. Status code: {response.status_code}. Message: {response.text}')
-
-
+     
+               
 # Iterate over each file in the directory and subdirectories
 for root, dirs, files in os.walk(sudo_income_data_path):
     for filename in files:       
