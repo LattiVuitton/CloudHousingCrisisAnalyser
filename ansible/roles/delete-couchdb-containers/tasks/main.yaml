@@ -1,6 +1,6 @@
 ---
 - name: Stop and remove couchdb container
-  docker_container:
+  community.docker.docker_container:
     name: mrc_couchdb
     state: absent
 

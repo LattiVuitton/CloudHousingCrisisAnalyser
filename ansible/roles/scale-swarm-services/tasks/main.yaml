@@ -1,13 +1,29 @@
-- name: Scale mrc-test-app
+- name: Scale Mastodon Harvester Service 
   community.docker.docker_swarm_service:
-    # Sample of a service to be scaled.
-    # name: mrc_test-app
-    # image: navdeep16/mrc-test-app:1.2
-    # publish:
-    #   - published_port: 3001
-    #     target_port: 3000
-    # mode: replicated
-    # replicas: 6
-    # state: present
+    name: mastodon_harvester
+    image: latti31/harvester_rebuild:latest
+    mode: replicated
+    replicas: 3
+    state: present
 
-  # TODO: Include mastodon_harvester, frontend and backend service here
+- name: Scale Node Backend Service 
+  community.docker.docker_swarm_service:
+    name: backend
+    image: hieuhuung4/node_backend:latest
+    publish:
+      - published_port: 5000
+        target_port: 5000
+    mode: replicated
+    replicas: 3
+    state: present
+
+- name: Scale React Frontend Service 
+  community.docker.docker_swarm_service:
+    name: frontend
+    image: hieuhuung4/react_frontend:latest
+    publish:
+      - published_port: 3000
+        target_port: 3000
+    mode: replicated
+    replicas: 3
+    state: present

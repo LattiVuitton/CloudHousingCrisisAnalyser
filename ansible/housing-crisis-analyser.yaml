@@ -1,12 +1,3 @@
-- hosts: all
-  gather_facts: true
-  become: yes
-  roles:
-    - role: common
-    - role: install-docker
-    - role: install-portainer
-    - role: deploy-couchdb-containers
-
 - hosts: worker-server-2
   gather_facts: true
   vars:
@@ -20,8 +11,6 @@
     - role: sudo-data-processing-ansible
     - role: add-finance-data
     - role: twitter-data-processing-ansible
-    
-
 
 
 

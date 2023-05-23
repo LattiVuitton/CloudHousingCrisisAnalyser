@@ -1,0 +1,15 @@
+---
+- name: Delete Mastodon Harvester Service
+  community.docker.docker_swarm_service:
+    name: mastodon_harvester
+    state: absent
+
+- name: Delete Node Backend Service 
+  community.docker.docker_swarm_service:
+    name: backend
+    state: absent
+
+- name: Delete React Frontend Service
+  community.docker.docker_swarm_service:
+    name: frontend
+    state: absent
