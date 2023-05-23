@@ -17,7 +17,7 @@
       - tweetnlp
       - nltk
       - pandas
-
+      - shapely
 
 - name: Copy twitterDataConfig file
   ansible.builtin.copy:
@@ -44,6 +44,9 @@
   command: mv "{{ remote_twitter_data_dir }}/mnt/ext100/twitter-huge.json" "{{ remote_twitter_data_dir }}"
 
 - name: Run twitter-data-processing script
-  command: nohup python3 "{{ remote_twitter_data_dir }}/processor.py" &
+  command: python3 "{{ remote_twitter_data_dir }}/processor.py" 
+
+- name: Delete twitter-huge data to save space
+  command: rm "{{ remote_twitter_data_dir }}/twitter-huge.json" 
 
 

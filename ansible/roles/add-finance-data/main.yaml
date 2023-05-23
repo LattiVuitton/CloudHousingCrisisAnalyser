@@ -1,0 +1,12 @@
+- name: Install python library requirements
+  ansible.builtin.pip:
+    name: 
+      - yfinance
+
+- name: Copy finance file
+  ansible.builtin.copy:
+    src: "{{ local_finance_data_dir }}"
+    dest: "{{ remote_finance_data_dir }}/single_json_object_eco_data.py"
+
+- name: Run finance script to post data to couchDB
+  command: python3 "{{ remote_finance_data_dir }}/single_json_object_eco_data.py" 

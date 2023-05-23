@@ -11,10 +11,8 @@ password = sudoDataConfig.password_db
 db = sudoDataConfig.sudo_data_db
 url = "http://" + username + ":" + password + "@" + db  
 headers = {'Content-type':'application/json'}
-housing_data = "/sudo_rental_data"
-income_data = "/sudo_income_data"
-
-
+housing_data = "/sudo_rental_data_copy"
+income_data = "/sudo_income_data_copy"
 
 
  

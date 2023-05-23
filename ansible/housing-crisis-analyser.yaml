@@ -7,23 +7,20 @@
     - role: install-portainer
     - role: deploy-couchdb-containers
 
-# - hosts: worker-server-2
-#   gather_facts: true
-#   vars:
-#     remote_twitter_data_dir: /home/ubuntu/twitter-data-processing
-#     local_twitter_data_dir: ../twitter-data-processing
-
-#   roles:
-#     - role: twitter-data-processing-ansible
-
-- hosts: worker-server-1
+- hosts: worker-server-2
   gather_facts: true
-  become: yes
   vars:
     remote_sudo_data_dir: /home/ubuntu
     local_sudo_data_dir: ../sudo-data-processing
+    remote_twitter_data_dir: /home/ubuntu/twitter-data-processing
+    local_twitter_data_dir: ../twitter-data-processing
+    remote_finance_data_dir: /home/ubuntu
+    local_finance_data_dir: ./LiveEconomicData
   roles:
     - role: sudo-data-processing-ansible
+    - role: add-finance-data
+    - role: twitter-data-processing-ansible
+    
 
 
 
