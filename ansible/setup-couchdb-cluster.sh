@@ -43,7 +43,7 @@ for node in "${nodes[@]}"; do  curl -X GET "http://${user}:${pass}@${node}:5984/
 
 # Creating the DBs on the cluster
 echo "Creating twitter_data database..."
-curl -X PUT "http://${user}:${pass}@${masternode}:5984/twitter_data_copy" 
+curl -X PUT "http://${user}:${pass}@${masternode}:5984/twitter_data" 
 
 echo "Creating mastodon_data database..."
 curl -X PUT "http://${user}:${pass}@${masternode}:5984/mastodon_data_copy"
