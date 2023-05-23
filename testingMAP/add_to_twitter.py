@@ -1,13 +1,6 @@
 import json
-import random
-import time
-import matplotlib.path as mpltPath
-import numpy as np
 
 ##### TO DO BEFORE PROCESSING TWITTER
-
-# Example format for coords:
-#coords_tuples = [(-37.45724, 145.98324), (-37.45724, 145.98324)]
 
 class Suburb():
     def __init__(self, bbox, suburb_code, polygon):
@@ -52,9 +45,6 @@ def ray_tracing_method(x,y,poly):
         p1x,p1y = p2x,p2y
 
     return inside
-
-
-
 
 # DURING TWITTER (embed in twitter processing function):
 x_coord = 0# Insert twitter x coord of centre of bbox
