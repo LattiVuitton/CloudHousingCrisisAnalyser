@@ -4,7 +4,8 @@ import { tokens } from "../../theme";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import MessageIcon from '@mui/icons-material/Message';
 import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
+import LineChart from "../../components/LineChart2_1";
+import LineChart2 from "../../components/LineChart2_2";
 import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
@@ -15,13 +16,12 @@ const Dashboard = () => {
 
   const [backendData, setBackendData] = useState([null]);
   useEffect(() => {
-    fetch("/countma",{
+    fetch("/data",{
       mode: 'no-cors',
     }).then(
       //data
       (response) => response.json()
       .then((data) => {setBackendData(data)
-        console.log("backendData API ", backendData);
       })
     );
   }, [])
@@ -41,57 +41,31 @@ const Dashboard = () => {
       >
         {/* ROW 1 */}
         <Box
-          gridColumn="span 3"
+          gridColumn="span 6"
+          gridRow="span 2"
           backgroundColor={colors.main[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
         >
-          <StatBox
-            title={
-              //[backendData.data]
-              2749014/1000000}
-            title2=" M"
-            subtitle="Number of Twitter posts"
-            icon={
-              <TwitterIcon
-                sx={{ color: colors.green[600], fontSize: "26px" }}
-              />
-            }
-          />
+          <Box
+            mt="25px"
+            p="0 30px"
+            display="flex "
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box>
+              <Typography
+                variant="h5"
+                fontWeight="600"
+                color={colors.light[100]}
+              >
+                Line chart
+              </Typography>
+            </Box>
+          </Box>
+          <Box height="250px" m="-20px 0 0 0">
+            <LineChart isDashboard={false} />
+          </Box>
         </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.main[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title={([backendData.data])/1000}
-            title2=" K"
-            subtitle="Number of Masudon posts"
-            icon={
-              <MessageIcon
-                sx={{ color: colors.green[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        {/* <Box> */}
-          {/* <StatBox
-            title="32,441"
-            subtitle="sth sth"
-            // icon={
-            //   <PersonAddIcon
-            //     sx={{ color: colors.green[600], fontSize: "26px" }}
-            //   />
-            // }
-          /> */}
-        {/* </Box> */}
-        
-        
-        {/* ROW 2 */}
         <Box
           gridColumn="span 6"
           gridRow="span 2"
@@ -110,50 +84,18 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.light[100]}
               >
-                Use of languages
+                Line chart
               </Typography>
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={false} />
+            <LineChart2 isDashboard={false} />
           </Box>
         </Box>
 
-        {/* ROW 2 */}
+        {/* ROW 3 */}
         <Box
           gridColumn="span 6"
-          gridRow="span 2"
-          backgroundColor={colors.main[400]}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ padding: "30px 30px 0 30px" }}
-          >
-            Average sentiment in different platforms and regions
-          </Typography>
-          <Box height="250px" mt="-20px">
-            <BarChart isDashboard={false} />
-          </Box>
-        </Box>
-        {/* <Box
-          gridColumn="span 6"
-          gridRow="span 2"
-          backgroundColor={colors.main[400]}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ padding: "30px 30px 0 30px" }}
-          >
-            Bar chart
-          </Typography>
-          <Box height="250px" mt="-20px">
-            <BarChart isDashboard={false} />
-          </Box>
-        </Box> */}
-        {/* <Box
-          gridColumn="span 8"
           gridRow="span 2"
           backgroundColor={colors.main[400]}
           padding="30px"
@@ -165,10 +107,28 @@ const Dashboard = () => {
           >
             Geography
           </Typography>
-          <Box height="200px"length="200px">
-            <GeographyChart isDashboard={true} />
+          <Box height="200px">
+            <GeographyChart isDashboard={false} />
           </Box>
-        </Box> */}
+        </Box>
+        <Box
+          gridColumn="span 6"
+          gridRow="span 2"
+          backgroundColor={colors.main[400]}
+          padding="30px"
+        >
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ marginBottom: "15px" }}
+          >
+            Geography
+          </Typography>
+          <Box height="200px">
+            <GeographyChart isDashboard={false} />
+          </Box>
+        </Box>
+        
       </Box>
     </Box>
   );
