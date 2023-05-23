@@ -19,6 +19,8 @@
     src: "{{ local_sudo_data_dir }}"
     dest: "{{ remote_sudo_data_dir }}"
 
+- name: Unzip sudo file
+  command: unzip "{{ remote_sudo_data_dir }}/sudo-data-processing/Sudo-Data.zip" -d "{{ remote_sudo_data_dir }}/sudo-data-processing"
     
 - name: Install python library requirements
   ansible.builtin.pip:
@@ -26,4 +28,4 @@
       - requests
 
 - name: Run sudo-data-processing script
-  command: nohup python3 "{{ remote_sudo_data_dir }}/sudo-data-processing/sudo-processing.py" &
+  command: python3 "{{ remote_sudo_data_dir }}/sudo-data-processing/sudo-processing.py"
