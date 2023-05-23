@@ -1,11 +1,11 @@
 import { ResponsiveLine } from "@nivo/line";
-import { useTheme } from "@mui/material";
+import {  useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useRoute } from "../routeContext";
 
-const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
+const LineChart2_1 = ({ isCustomLineColors = false, isDashboard = false }) => {
   const location = useLocation();
   const { route, setRoute } = useRoute();
   const theme = useTheme();
@@ -13,10 +13,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
   //const { fetchApi, setFetchApi } = useState(false);
 
   const [backendData, setBackendData] = useState([]);
-
-
-  //routing
-  // useEffect(() => {
+  useEffect(() => {
     // console.log("route in Line 0", route);
     // let url = "/line";
     // if (route === "Time Series") {
@@ -41,39 +38,23 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
     //   //setFetchApi(false);
     // }
 
-    // console.log("route in Line final", url);
-    
-  //   fetch(
-  //     "/line", {
-  //     //url,{
-  //       mode: "no-cors",
-  //     }
-  //   ).then((response) =>
-  //     response.json().then((data) => {
-  //               setBackendData((prevData) => {
-  //         prevData = [];
-  //         return data.data;
-  //       });
-  //       //setFetchApi(true);
-  //       console.log("backendData API ", backendData);
-  //       console.log("mockLineData ", mockLineData);
-  //     })
-  //   );
-  // }, [
-  // //  useRoute()
-  // ]);
-
-  useEffect(() => {
-      // console.log("location from router ", location);
-      fetch("/line",{
-        mode: 'no-cors',
-      }).then(
-        (response) => response.json()
-        .then((data) => {
-          setBackendData(data.data)
-        })
-      );
-    }, [])
+   // console.log("route in Line final", url);
+    fetch(
+      "/line2_1", {
+      //url,{
+        mode: "no-cors",
+      }
+    ).then((response) =>
+      response.json().then((data) => {
+                setBackendData((prevData) => {
+          prevData = [];
+          return data.data;
+        });
+        //setFetchApi(true);
+        console.log("backendData API ", backendData);
+      })
+    );
+  }, []);
 
   const chartTheme = {
     axis: {
@@ -125,7 +106,9 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         reverse: false,
       }}
       yFormat=" >-.2f"
-      curve="step"
+      curve="linear"
+      enableSlices="x"
+      enablePoints={false}
       axisTop={null}
       axisRight={null}
       axisBottom={{
@@ -133,10 +116,10 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "Platform",
+        legend: isDashboard ? undefined : "Twitter sentiment/Stock index",
         legendOffset: 36,
+        tickValues: ["2022-02-01", "2022-03-01", "2022-04-01","2022-05-02","2022-06-01","2022-07-01","2022-08-01"],
         legendPosition: "middle",
-        tickValues: ["ja","ca","de","fr","nl","zh","pt","es"]
       }}
       axisLeft={{
         orient: "left",
@@ -145,6 +128,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickPadding: 5,
         tickRotation: 0,
         legendOffset: -40,
+        
         legendPosition: "middle",
       }}
       
@@ -187,4 +171,4 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
   );
 };
 
-export default LineChart;
+export default LineChart2_1;

@@ -2,19 +2,10 @@ import React from 'react';
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 
-//formating to thousands
-// const formattedTitle = (num) => {
-//   if (num >= 1000000) {
-//     const formattedNum = (num / 1000000).toFixed(0);
-//     return `${formattedNum} M`;
-//   }
-//   return num.toString();
-// };
 const StatBox = ({ title, title2, subtitle, icon }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const formattedTitle = title.toLocaleString();
-  //const formattedTitle = title.toFixed(2);
 
  
   return (
@@ -27,7 +18,6 @@ const StatBox = ({ title, title2, subtitle, icon }) => {
             fontWeight="bold"
             sx={{ color: colors.light[100] }}
           >
-            {/* {formattedTitle(title)} */}
             {formattedTitle}
             {title2}
           </Typography>

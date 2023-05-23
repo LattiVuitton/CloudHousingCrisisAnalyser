@@ -3,13 +3,29 @@ import { ResponsiveChoropleth } from "@nivo/geo";
 import { geoFeatures } from "../data/mockGeoFeatures";
 import { tokens } from "../theme";
 import { mockGeographyData as data } from "../data/mockData";
+import { useState, useEffect } from 'react'
 
 const GeographyChart = ({ isDashboard = false }) => {
+     const [backendData, setBackendData] = useState([]);
+  useEffect(() => { 
+    //console.log("routerData in Bar ", routeData)
+    fetch("/geography",{
+      mode: 'no-cors',
+    }).then(
+      //data
+      (response) => response.json()
+      .then((data) => {
+        console.log(data)
+        setBackendData(data)
+      })
+    );
+  }, [])
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
     <ResponsiveChoropleth
       data={data}
+      //data={backendData ? backendData : []}
       theme={{
         axis: {
           domain: {

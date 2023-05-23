@@ -1,30 +1,29 @@
 import { useTheme } from "@mui/material";
-import { ResponsiveBar } from "@nivo/bar";
+import { ResponsiveBar  } from "@nivo/bar";
 import { tokens } from "../theme";
-import { mockBarData as data } from "../data/mockData";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useRoute } from "../routeContext";
 
 const BarChart = ({ isDashboard = false }) => {
+  
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  //const location = useLocation();
-  //const { title : routeData = '' } = location?.state || {};
 
   const [backendData, setBackendData] = useState([]);
-  useEffect(() => { 
-    //console.log("routerData in Bar ", routeData)
-    fetch("/bar",{
-      mode: 'no-cors',
+  useEffect(() => {
+    fetch("/bar", {
+      mode: "no-cors",
     }).then(
       //data
-      (response) => response.json()
-      .then((data) => {
-        console.log(data)
-        setBackendData(data)
-      })
+      (response) =>
+        response.json().then((data) => {
+          console.log(data.data);
+          setBackendData(data.data);
+        })
     );
-  }, [])
+  }, []);
+
 
   return (
     <ResponsiveBar
@@ -59,8 +58,8 @@ const BarChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
-      indexBy="country"
+      keys={["Sentiment"]}
+      indexBy="Platform/Country"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
       valueScale={{ type: "linear" }}
@@ -96,17 +95,18 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "country", // changed
+        legend: isDashboard ? undefined : "Platform/Country", 
         legendPosition: "middle",
-        legendOffset: 32,
+        legendOffset: 45,
       }}
       axisLeft={{
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "food", // changed
+        
+        legend: isDashboard ? undefined : "Average sentiment", 
         legendPosition: "middle",
-        legendOffset: -40,
+        legendOffset: -45,
       }}
       enableLabel={false}
       labelSkipWidth={12}
