@@ -2,7 +2,12 @@
   "name": "react-admin",
   "version": "0.1.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "proxy": "http://localhost:5000",
+=======
+ 
+  "proxy": "http://http://backend:5000",
+>>>>>>> f0c6d34af50a90c3974fb5f8cc7209517fb6763c
 =======
  
   "proxy": "http://http://backend:5000",
@@ -32,7 +37,11 @@
     "geolib": "^3.3.3",
     "leaflet": "^1.6.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "leaflet.heat": "^0.2.0",
+=======
+    "moment": "^2.29.4",
+>>>>>>> f0c6d34af50a90c3974fb5f8cc7209517fb6763c
 =======
     "moment": "^2.29.4",
 >>>>>>> f0c6d34af50a90c3974fb5f8cc7209517fb6763c

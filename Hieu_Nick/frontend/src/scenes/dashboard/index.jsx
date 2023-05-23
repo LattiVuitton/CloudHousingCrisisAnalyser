@@ -15,12 +15,13 @@ const Dashboard = () => {
 
   const [backendData, setBackendData] = useState([null]);
   useEffect(() => {
-    fetch("/data",{
+    fetch("/countma",{
       mode: 'no-cors',
     }).then(
       //data
       (response) => response.json()
       .then((data) => {setBackendData(data)
+        console.log("backendData API ", backendData);
       })
     );
   }, [])
@@ -47,7 +48,9 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={[backendData.data]*1651516}
+            title={
+              //[backendData.data]
+              2749014/1000000}
             title2=" M"
             subtitle="Number of Twitter posts"
             icon={
@@ -65,7 +68,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
+            title={([backendData.data])/1000}
+            title2=" K"
             subtitle="Number of Masudon posts"
             icon={
               <MessageIcon
@@ -74,14 +78,8 @@ const Dashboard = () => {
             }
           />
         </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.main[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
+        {/* <Box> */}
+          {/* <StatBox
             title="32,441"
             subtitle="sth sth"
             // icon={
@@ -89,13 +87,13 @@ const Dashboard = () => {
             //     sx={{ color: colors.green[600], fontSize: "26px" }}
             //   />
             // }
-          />
-        </Box>
+          /> */}
+        {/* </Box> */}
         
         
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
+          gridColumn="span 6"
           gridRow="span 2"
           backgroundColor={colors.main[400]}
         >
@@ -112,7 +110,7 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.light[100]}
               >
-                Line chart
+                Use of languages
               </Typography>
             </Box>
           </Box>
@@ -123,7 +121,7 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn="span 4"
+          gridColumn="span 6"
           gridRow="span 2"
           backgroundColor={colors.main[400]}
         >
@@ -132,13 +130,13 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Bar chart
+            Average sentiment in different platforms and regions
           </Typography>
           <Box height="250px" mt="-20px">
             <BarChart isDashboard={false} />
           </Box>
         </Box>
-        <Box
+        {/* <Box
           gridColumn="span 6"
           gridRow="span 2"
           backgroundColor={colors.main[400]}
@@ -153,7 +151,7 @@ const Dashboard = () => {
           <Box height="250px" mt="-20px">
             <BarChart isDashboard={false} />
           </Box>
-        </Box>
+        </Box> */}
         {/* <Box
           gridColumn="span 8"
           gridRow="span 2"
