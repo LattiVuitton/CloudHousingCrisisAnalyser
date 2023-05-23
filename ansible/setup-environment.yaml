@@ -1,0 +1,18 @@
+- hosts: all
+  gather_facts: true
+  become: yes
+  roles:
+    - role: common
+    - role: install-portainer
+  
+- hosts: master-server
+  gather_facts: true
+  become: yes
+  roles:
+    - role: docker-swarm-init
+
+- hosts: worker-servers
+  gather_facts: true
+  become: yes
+  roles:
+    - role: docker-swarm-add-worker

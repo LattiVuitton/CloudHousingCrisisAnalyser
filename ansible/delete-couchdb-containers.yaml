@@ -1,12 +1,4 @@
 - name: Hard Clean CouchDb Containers - including volumes
   hosts: all
-  tasks:
-    - name: Stop and remove CouchDb containers
-      community.docker.docker_container:
-        name: mrc_cluster_couchdb
-        state: absent
-
-    - name: Remove CouchDb volume
-      community.docker.docker_volume:
-        name: couchdb_cluster_data
-        state: absent
+  roles:
+    - role: delete-couchdb-containers
