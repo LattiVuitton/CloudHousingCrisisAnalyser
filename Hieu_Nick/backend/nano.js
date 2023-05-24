@@ -22,17 +22,36 @@ dbTW.info((err) => {
 //fix problem with Java
 app.use(express.static(__dirname));
 
+
 app.get("/api", (req, res) => {
   res.json({ message: "Connected to CouchDB!" });
 });
 
+const options = {
+  stale: 'ok'
+};
 
+app.get("/linee", async (req, res) => {
+  
+  try {
+    const body = await dbSudoRental.view('language', 'language', options) 
+      
+      // Extract the desired data from the retrieved documents
+      const data = body.rows.map((row) => row.value);
+      console.log("data", data);
+      return res.json({data:data}); 
+
+  }
+   catch (error) {
+    console.error("Error retrieving item count:", error);
+  }
+});
 //line 1
 app.get("/line", async (req, res) => {
   
   //accesing dbTW view for line charts
   try {
-    const bodyTW = await dbTW.view("language", "language");
+    const bodyTW = await dbTW.view("language", "language",options);
     console.log("bodyTW ", bodyTW.total_rows);
     const countMapTW = new Map();
     bodyTW.rows.map((doc) => {
@@ -48,7 +67,7 @@ app.get("/line", async (req, res) => {
       }
     });
 
-    const bodyMA = await dbMA.view("language", "lang");
+    const bodyMA = await dbMA.view("language", "lang",options);
     const countmapMA = new Map();
     bodyMA.rows.map((doc) => {
       const { key, value } = doc;
@@ -247,7 +266,7 @@ app.get("/line2_2", async (req, res) => {
     };
   
   
-    const bodyTW = await dbTW.view("sentiment", "sentiment_bitcoin", {reduce: true, group: true});
+    const bodyTW = await dbTW.view("sentiment", "sentiment_bitcoin", {reduce: true, group: true},options);
     const transformedDataTW= bodyTW.rows.map(row => {
       return {
         x: row.key,
@@ -471,20 +490,20 @@ app.get("/countTW", async (req, res) => {
 
 
   //const couchdb = require("nano")("http://admin:password@172.26.132.178:5984");
-// const dbSudoRental = couchdb.db.use('sudo_rental_data_copy'); // Replace with your database name
+const dbSudoRental = couchdb.db.use('sudo_rental_data_copy'); // Replace with your database name
 
-//   app.get("/map", async (req, res) => {
+  app.get("/map", async (req, res) => {
   
-//     try {
-//       const body = await dbSudoRental.view('rental-index-change', 'rental-index') 
+    try {
+      const body = await dbSudoRental.view('rental-index-change', 'rental-index') 
         
-//         // Extract the desired data from the retrieved documents
-//         const data = body.rows.map((row) => row.value);
-//         console.log("data", data);
-//         return res.json({data:data}); 
+        // Extract the desired data from the retrieved documents
+        const data = body.rows.map((row) => row.value);
+        console.log("data", data);
+        return res.json({data:data}); 
 
-//     }
-//      catch (error) {
-//       console.error("Error retrieving item count:", error);
-//     }
-//   });
+    }
+     catch (error) {
+      console.error("Error retrieving item count:", error);
+    }
+  });
