@@ -1,3 +1,16 @@
+#
+# Part of Assignment 2 - COMP90024 2023 Semester 1
+# Cluster and Cloud Computing
+# The University of Melbourne 
+#
+# Team 49:
+#  * Navdeep Beniwal (1279517)
+#  * Aditya Desu (1000447)
+#  * Hieu (Nick) Huu (1329582)
+#  * Jonathan Latti (1083374)
+#  * Patricia Widjojo (913557)
+#
+
 import ijson
 import os
 import json
@@ -67,7 +80,7 @@ class Suburb():
         self.bottom = min(bbox[1],bbox[3])
         self.centre = [(bbox[0] + bbox[2]) / 2,(bbox[1] + bbox[3]) / 2]
         self.polygon = polygon
-polygon_file_path =  os.path.join(script_dir, "Merged-Aus-Polygon_2.geojson")
+polygon_file_path =  os.path.join(script_dir, "suburb-polygon.geojson")
 
 with open(polygon_file_path, 'r') as f:
     data = json.load(f)
