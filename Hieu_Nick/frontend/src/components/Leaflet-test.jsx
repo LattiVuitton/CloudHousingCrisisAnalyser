@@ -379,10 +379,10 @@ const MapComponent = () => {
 
         legend.onAdd = function () {
             const div = L.DomUtil.create('div', 'info legend');
-            const grades = [0, 5, 10, 20, 50]; // your ranges
-            const colors = ['#800000', '#FF0000', '#FF8C00', '#FFD700', '#ADFF2F']; // corresponding colors
+            const grades = [0, 5, 10, 20, 50]; 
+            const colors = ['#800000', '#FF0000', '#FF8C00', '#FFD700', '#ADFF2F'];
 
-            // loop through intervals to generate a label with a colored square for each interval
+            
             for (let i = 0; i < grades.length; i++) {
                 div.innerHTML +=
                     '<i style="background:' + colors[i] + '"></i> ' +
