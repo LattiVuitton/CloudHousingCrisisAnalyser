@@ -1,0 +1,4 @@
+- name: Delete Swarm Services
+  hosts: all
+  roles:
+    - role: delete-swarm-services

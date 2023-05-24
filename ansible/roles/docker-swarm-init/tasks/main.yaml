@@ -23,7 +23,7 @@
   register: worker_token
   tags: swarm
 
-# TODO: TBR
-# - name: Printing the worker_token
-#   debug:
-#     var: worker_token
+- name: Install jsondiff package
+  pip:
+    name: jsondiff
+    state: present

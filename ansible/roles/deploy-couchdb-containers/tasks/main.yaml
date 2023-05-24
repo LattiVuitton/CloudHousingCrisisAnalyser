@@ -1,11 +1,4 @@
 ---
-# Execute only to remove the CouchDb containers
-# - name: Remove previous couchdb container
-#   community.docker.docker_container:
-#     name: mrc_couchdb
-#     state: absent
-#   register: removed
-
 - name: Deploy CouchDb Container
   community.docker.docker_container:
     name: mrc_couchdb
@@ -22,16 +15,3 @@
       volumes:
         - couchdb_data:/opt/couchdb/data
       restart_policy: always
-
-- name: Create twitter data database
-  command: curl -X PUT "http://admin:password@localhost:5984/twitter_data_copy"
-
-- name: Create mastodon data database
-  command: curl -X PUT "http://admin:password@localhost:5984/mastodon_data_copy"
-
-- name: Create sudo income data database
-  command: curl -X PUT "http://admin:password@localhost:5984/sudo_income_data_copy"
-
-  - name: Create sudo rental data database
-  command: curl -X PUT "http://admin:password@localhost:5984/sudo_rental_data_copy"
-
