@@ -3,7 +3,7 @@ import { Box, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { interestData } from "../data/interest rate_data";
+//import { interestData } from "../data/interest rate_data";
 import { useRoute } from "../routeContext";
 
 const LineChart3_2 = ({ isCustomLineColors = false, isDashboard = false }) => {

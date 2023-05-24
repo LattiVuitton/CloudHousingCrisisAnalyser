@@ -1,7 +1,8 @@
 import { Box, useTheme } from "@mui/material";
-import GeographyChart from "../../components/GeographyChart";
+import MapComponent2 from "../../components/Fullmap";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
+
 
 //nivo chart
 const Geography = () => {
@@ -9,14 +10,14 @@ const Geography = () => {
   const colors = tokens(theme.palette.mode);
   return (
     <Box m="20px">
-      <Header title="Geography" subtitle="Simple Geography Chart" />
+      <Header title="What is the sentiment of people who tweet in general and the levels of rental index change?" subtitle="Average Sentiment by Suburb and Rental Index Change" />
 
       <Box
         height="75vh"
         border={`1px solid ${colors.light[100]}`}
         borderRadius="4px"
       >
-        <GeographyChart />
+        <MapComponent2 />
       </Box>
     </Box>
   );
