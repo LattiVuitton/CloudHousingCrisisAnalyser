@@ -13,7 +13,7 @@ const LineChart2_1 = ({ isCustomLineColors = false, isDashboard = false }) => {
   //const { fetchApi, setFetchApi } = useState(false);
 
   const [backendData, setBackendData] = useState([]);
-  useEffect(() => {
+  
     // console.log("route in Line 0", route);
     // let url = "/line";
     // if (route === "Time Series") {
@@ -39,6 +39,7 @@ const LineChart2_1 = ({ isCustomLineColors = false, isDashboard = false }) => {
     // }
 
    // console.log("route in Line final", url);
+   useEffect(() => {
     fetch(
       "/line2_1", {
       //url,{
@@ -50,8 +51,6 @@ const LineChart2_1 = ({ isCustomLineColors = false, isDashboard = false }) => {
           prevData = [];
           return data.data;
         });
-        //setFetchApi(true);
-        console.log("backendData API ", backendData);
       })
     );
   }, []);
