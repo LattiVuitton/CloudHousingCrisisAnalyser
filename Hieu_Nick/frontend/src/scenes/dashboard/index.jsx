@@ -18,7 +18,6 @@ const Dashboard = () => {
     fetch("/countma",{
       mode: 'no-cors',
     }).then(
-      //data
       (response) => response.json()
       .then((data) => {setBackendData(data)
         console.log("backendData API ", backendData);
@@ -70,7 +69,7 @@ const Dashboard = () => {
           <StatBox
             title={([backendData.data])/1000}
             title2=" K"
-            subtitle="Number of Masudon posts"
+            subtitle="Number of Mastodon posts"
             icon={
               <MessageIcon
                 sx={{ color: colors.green[600], fontSize: "26px" }}
