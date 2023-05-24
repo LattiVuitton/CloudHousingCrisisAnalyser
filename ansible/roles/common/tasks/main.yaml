@@ -1,9 +1,22 @@
+#
+# Part of Assignment 2 - COMP90024 2023 Semester 1
+# Cluster and Cloud Computing
+# The University of Melbourne 
+#
+# Team 49:
+#  * Navdeep Beniwal (1279517)
+#  * Aditya Desu (1000447)
+#  * Hieu (Nick) Huu (1329582)
+#  * Jonathan Latti (1083374)
+#  * Patricia Widjojo (913557)
+#
+
 ---
 - name: Gather facts of remote host
   ansible.builtin.setup:
     gather_subset: all
 
-- name: Install dependencies
+- name: Install common dependencies
   tags: always
   become: yes
   ansible.builtin.apt:
@@ -12,12 +25,35 @@
     install_recommends: no
     update_cache: yes
 
+# Configure vm user permission to access docker deamon
+- name: add userpermissions
+  become: yes
+  shell: "usermod -aG docker ubuntu"
+
+- name: reset ssh connection
+  meta: reset_connection
+
 - name: Update pip
   tags: always
   become: yes
   ansible.builtin.pip:
     name: ['pip']
     state: latest
+
+# Uncomment the following code if python3-pip isn't already installed
+# - name: install python package manager
+#   apt:
+#     name: python3-pip
+
+# Installs Docker SDK
+# --
+# 
+- name: install python sdk
+  become: yes
+  pip:
+    name:
+      - docker
+      - docker-compose
 
 - name: Add team's public keys to ssh authorized keys
   ansible.posix.authorized_key:

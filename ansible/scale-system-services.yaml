@@ -1,5 +1,0 @@
----
-- name: Scale system services
-  hosts: master-server
-  roles:
-    - role: scale-swarm-services

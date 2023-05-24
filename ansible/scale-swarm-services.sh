@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #
 # Part of Assignment 2 - COMP90024 2023 Semester 1
 # Cluster and Cloud Computing
@@ -11,6 +13,4 @@
 #  * Patricia Widjojo (913557)
 #
 
-username_db = "admin"
-password_db = "password"
-twitter_data_db = "localhost:5984"
+ansible-playbook --flush-cache -v -i hosts -u ubuntu scale-swarm-services.yaml

@@ -1,12 +1,17 @@
+#
+# Part of Assignment 2 - COMP90024 2023 Semester 1
+# Cluster and Cloud Computing
+# The University of Melbourne 
+#
+# Team 49:
+#  * Navdeep Beniwal (1279517)
+#  * Aditya Desu (1000447)
+#  * Hieu (Nick) Huu (1329582)
+#  * Jonathan Latti (1083374)
+#  * Patricia Widjojo (913557)
+#
+
 - name: Hard Clean CouchDb Containers - including volumes
   hosts: all
-  tasks:
-    - name: Stop and remove CouchDb containers
-      community.docker.docker_container:
-        name: mrc_cluster_couchdb
-        state: absent
-
-    - name: Remove CouchDb volume
-      community.docker.docker_volume:
-        name: couchdb_cluster_data
-        state: absent
+  roles:
+    - role: delete-couchdb-containers

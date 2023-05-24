@@ -11,6 +11,8 @@
 #  * Patricia Widjojo (913557)
 #
 
-username_db = "admin"
-password_db = "password"
-twitter_data_db = "localhost:5984"
+---
+- name: Scale system services
+  hosts: master-server
+  roles:
+    - role: scale-swarm-services
