@@ -5,7 +5,7 @@ import LineChart from "../../components/LineChart2_2";
 const line_chart = () => {
   return (
     <Box m="25px">
-      <Header title="Line Chart" subtitle="Simple Line Chart" />
+      <Header title="Twitter Sentiment vs Bitcoin Index"  />
       <Box height="80vh">
         <LineChart />
       </Box>

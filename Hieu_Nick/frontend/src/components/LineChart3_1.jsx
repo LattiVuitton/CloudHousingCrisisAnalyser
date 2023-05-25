@@ -100,7 +100,7 @@ const LineChart3_1 = ({ isCustomLineColors = false, isDashboard = false }) => {
         type: "linear",
         min: "auto",
         max: "auto",
-        stacked: true,
+        stacked: false,
         reverse: false,
       }}
       yFormat=" >-.2f"
@@ -112,9 +112,9 @@ const LineChart3_1 = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "Twitter sentiment/Interest rate",
         legendOffset: 36,
         legendPosition: "middle",
+        tickValues: ["02/2022","03/2022","04/2022","05/2022","06/2022","07/2022","08/2022","09/2022","10/2022"]
       }}
       axisLeft={{
         orient: "left",
@@ -125,6 +125,7 @@ const LineChart3_1 = ({ isCustomLineColors = false, isDashboard = false }) => {
         //legend: isDashboard ? undefined : "Used languages",
         legendOffset: -40,
         legendPosition: "middle",
+        tickValues:[2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5]
       }}
       
     

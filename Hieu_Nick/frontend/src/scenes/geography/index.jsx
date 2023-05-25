@@ -1,6 +1,5 @@
 import { Box, useTheme } from "@mui/material";
-//import GeographyChart from "../../components/GeographyChart";
-import GeographyChart from "../../components/Leafletmap";
+import MapComponent from "../../components/Leafletmap";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 
@@ -10,14 +9,10 @@ const Geography = () => {
   const colors = tokens(theme.palette.mode);
   return (
     <Box m="20px">
-      <Header title="What is the sentiment of people who tweet about housing and the levels of rental index change?" subtitle="Average Sentiment by Suburbs with Different Rental Index Change" />
-
-      <Box
-        height="75vh"
-        border={`1px solid ${colors.light[100]}`}
-        borderRadius="4px"
-      >
-        <GeographyChart />
+      <Header title="What is the sentiment of people who tweet about housing and the levels of rental index change?" 
+      subtitle="Average Sentiment by Suburbs with Different Rental Index Change" />
+      <Box>
+        <MapComponent />
       </Box>
     </Box>
   );

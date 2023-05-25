@@ -6,9 +6,6 @@ import MessageIcon from '@mui/icons-material/Message';
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart2_1";
 import LineChart2 from "../../components/LineChart2_2";
-import GeographyChart from "../../components/GeographyChart";
-import BarChart from "../../components/BarChart";
-import StatBox from "../../components/StatBox";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -30,7 +27,7 @@ const Dashboard = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to the dashboard" />
+        <Header title="SCENARIO 2" subtitle="Economy" />
       </Box>
       {/* GRID & CHARTS */}
       <Box
@@ -58,7 +55,7 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.light[100]}
               >
-                Line chart
+                Twitter Sentiment vs All Ordinaries Index
               </Typography>
             </Box>
           </Box>
@@ -84,48 +81,12 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.light[100]}
               >
-                Line chart
+                Twitter Sentiment vs Bitcoin Index
               </Typography>
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
             <LineChart2 isDashboard={false} />
-          </Box>
-        </Box>
-
-        {/* ROW 3 */}
-        <Box
-          gridColumn="span 6"
-          gridRow="span 2"
-          backgroundColor={colors.main[400]}
-          padding="30px"
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ marginBottom: "15px" }}
-          >
-            Geography
-          </Typography>
-          <Box height="200px">
-            <GeographyChart isDashboard={false} />
-          </Box>
-        </Box>
-        <Box
-          gridColumn="span 6"
-          gridRow="span 2"
-          backgroundColor={colors.main[400]}
-          padding="30px"
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ marginBottom: "15px" }}
-          >
-            Geography
-          </Typography>
-          <Box height="200px">
-            <GeographyChart isDashboard={false} />
           </Box>
         </Box>
         
