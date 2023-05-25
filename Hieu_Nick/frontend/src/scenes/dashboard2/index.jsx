@@ -39,7 +39,7 @@ const Dashboard = () => {
         {/* ROW 1 */}
         <Box
           gridColumn="span 6"
-          gridRow="span 2"
+          gridRow="span 3"
           backgroundColor={colors.main[400]}
         >
           <Box
@@ -55,17 +55,17 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.light[100]}
               >
-                Twitter Sentiment vs All Ordinaries Index
+                General Tweet Sentiment vs All Ordinaries Index
               </Typography>
             </Box>
           </Box>
-          <Box height="250px" m="-20px 0 0 0">
+          <Box height="350px" m="-20px 0 0 0">
             <LineChart isDashboard={false} />
           </Box>
         </Box>
         <Box
           gridColumn="span 6"
-          gridRow="span 2"
+          gridRow="span 3"
           backgroundColor={colors.main[400]}
         >
           <Box
@@ -81,11 +81,11 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.light[100]}
               >
-                Twitter Sentiment vs Bitcoin Index
+                Bitcoin Related Tweet Sentiment vs Bitcoin Index
               </Typography>
             </Box>
           </Box>
-          <Box height="250px" m="-20px 0 0 0">
+          <Box height="350px" m="-20px 0 0 0">
             <LineChart2 isDashboard={false} />
           </Box>
         </Box>
