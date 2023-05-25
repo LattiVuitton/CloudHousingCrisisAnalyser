@@ -93,7 +93,7 @@ const Dashboard = () => {
         {/* ROW 2 */}
         <Box
           gridColumn="span 6"
-          gridRow="span 2"
+          gridRow="span 3"
           backgroundColor={colors.main[400]}
         >
           <Box
@@ -121,7 +121,7 @@ const Dashboard = () => {
         {/* ROW 2 */}
         <Box
           gridColumn="span 6"
-          gridRow="span 2"
+          gridRow="span 3"
           backgroundColor={colors.main[400]}
         >
           <Typography
@@ -131,7 +131,7 @@ const Dashboard = () => {
           >
             Average sentiment in different platforms and regions
           </Typography>
-          <Box height="250px" mt="-20px">
+          <Box height="400px" mt="-20px" ml= "25px">
             <BarChart isDashboard={false} />
           </Box>
         </Box>
