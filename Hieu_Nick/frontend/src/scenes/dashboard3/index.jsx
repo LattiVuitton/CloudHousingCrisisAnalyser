@@ -3,6 +3,8 @@ import { Box,  Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart3_1";
+import MapComponent from "../../components/Leafletmap";
+import MapComponent2 from "../../components/Fullmap";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -24,7 +26,7 @@ const Dashboard = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to the dashboard" />
+        <Header title="SCENARIO 3" subtitle="Housing" />
       </Box>
       {/* GRID & CHARTS */}
       <Box
@@ -85,8 +87,47 @@ const Dashboard = () => {
           </Box>
           <Box height="250px" m="-20px 0 0 0">
             <LineChart3_2 isDashboard={false} />
-          </Box> */}
-        {/* </Box> */}
+          </Box>
+        </Box> */}
+
+        {/* ROW 3 */}
+        <Box
+          gridColumn="span 6"
+          gridRow="span 4"
+          backgroundColor={colors.main[400]}
+          padding="30px"
+        >
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ marginBottom: "15px" }}
+          >
+            Geography
+          </Typography>
+          <Box height="200px">
+            <MapComponent2 />
+          </Box>
+        </Box>
+        <Box
+          gridColumn="span 6"
+          gridRow="span 4"
+          backgroundColor={colors.main[400]}
+          padding="30px"
+        >
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ marginBottom: "15px" }}
+          >
+            Geography
+          </Typography>
+          <Box >
+            <MapComponent />
+          </Box>
+        </Box>
+        
+
+
       </Box>
     </Box>
   );

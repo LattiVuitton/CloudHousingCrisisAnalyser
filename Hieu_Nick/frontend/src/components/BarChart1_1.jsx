@@ -95,8 +95,9 @@ const BarChart1_1 = ({ isDashboard = false }) => {
       axisRight={null}
       axisBottom={{
         tickSize: 5,
-        tickPadding: 5,
+        tickPadding: 20,
         tickRotation: 0,
+        tickRotation: 270,
         legend: isDashboard ? undefined : "Language Used", 
         legendPosition: "middle",
         legendOffset: 45,

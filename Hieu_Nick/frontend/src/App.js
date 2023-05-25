@@ -42,6 +42,7 @@ function App() {
           <main className="content">
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/1" element={<Dashboard />} />
               <Route path="/2" element={<Dashboard2 />} />
               <Route path="/3" element={<Dashboard3 />} />
               <Route path="/bar" element={<Bar />} />

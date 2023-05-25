@@ -39,7 +39,7 @@ const Dashboard = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to the dashboard" />
+        <Header title="SCENARIO 1" subtitle="General" />
       </Box>
       {/* GRID & CHARTS */}
       <Box
@@ -99,7 +99,35 @@ const Dashboard = () => {
         {/* ROW 2 */}
         <Box
           gridColumn="span 6"
-          gridRow="span 3"
+          gridRow="2 / span 3"
+          backgroundColor={colors.main[400]}
+        >
+          <Box
+            mt="25px"
+            p="0 30px"
+            display="flex "
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box>
+              <Typography
+                variant="h5"
+                fontWeight="600"
+                color={colors.light[100]}
+              >
+                Use of languages
+              </Typography>
+            </Box>
+          </Box>
+          <Box height="375px" width ="600px" ml="50px">
+          <BarChart isDashboard={false} />
+          </Box>
+        </Box>
+
+        {/* ROW 2 */}
+        <Box
+          gridColumn="span 6"
+          gridRow="span 4"
           backgroundColor={colors.main[400]}
         >
           <Typography
@@ -107,15 +135,13 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-           Average Sentiment of Different Platforms and Regions
+            Average sentiment in different platforms and regions
           </Typography>
-          <Box height="250px" mt="-20px">
-            <BarChart1_1 isDashboard={false} />
+          <Box height="500px" width ="600px" mt="20px" ml= "25px">
+          <BarChart1_1 isDashboard={false} />
           </Box>
         </Box>
-
-        {/* ROW 2 */}
-        <Box
+        {/* <Box
           gridColumn="span 6"
           gridRow="span 2"
           backgroundColor={colors.main[400]}
@@ -130,7 +156,24 @@ const Dashboard = () => {
           <Box height="250px" mt="-20px">
             <BarChart isDashboard={false} />
           </Box>
-        </Box>
+        </Box> */}
+        {/* <Box
+          gridColumn="span 8"
+          gridRow="span 2"
+          backgroundColor={colors.main[400]}
+          padding="30px"
+        >
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ marginBottom: "15px" }}
+          >
+            Geography
+          </Typography>
+          <Box height="200px"length="200px">
+            <GeographyChart isDashboard={true} />
+          </Box>
+        </Box> */}
       </Box>
     </Box>
   );

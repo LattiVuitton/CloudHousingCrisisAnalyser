@@ -125,7 +125,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         reverse: false,
       }}
       yFormat=" >-.2f"
-      curve="linear"
+      curve="step"
       axisTop={null}
       axisRight={null}
       axisBottom={{
