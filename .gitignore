@@ -2,4 +2,4 @@
 passwords.py
 
 # Ignoring node modules for backend and frontend
-Hieu_Nick/frontend/node_modules 
+node_modules 

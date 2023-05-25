@@ -1,3 +1,16 @@
+#
+# Part of Assignment 2 - COMP90024 2023 Semester 1
+# Cluster and Cloud Computing
+# The University of Melbourne 
+#
+# Team 49:
+#  * Navdeep Beniwal (1279517)
+#  * Aditya Desu (1000447)
+#  * Hieu (Nick) Huu (1329582)
+#  * Jonathan Latti (1083374)
+#  * Patricia Widjojo (913557)
+#
+
 export declare nodes=(172.26.136.103 172.26.131.253 172.26.132.178) # using default vm nodes for clustering setup
 export masternode=172.26.136.103
 export declare othernodes=`echo ${nodes[@]} | sed s/${masternode}//`
@@ -43,7 +56,7 @@ for node in "${nodes[@]}"; do  curl -X GET "http://${user}:${pass}@${node}:5984/
 
 # Creating the DBs on the cluster
 echo "Creating twitter_data database..."
-curl -X PUT "http://${user}:${pass}@${masternode}:5984/twitter_data_copy" 
+curl -X PUT "http://${user}:${pass}@${masternode}:5984/twitter_data" 
 
 echo "Creating mastodon_data database..."
 curl -X PUT "http://${user}:${pass}@${masternode}:5984/mastodon_data_copy"
