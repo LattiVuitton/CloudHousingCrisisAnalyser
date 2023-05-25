@@ -101,7 +101,7 @@ const LineChart2_2 = ({ isCustomLineColors = false, isDashboard = false }) => {
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
-        min: 9500, 
+        min: 5000, 
         max: 60000,
         stacked: false,
         reverse: false,
@@ -118,7 +118,7 @@ const LineChart2_2 = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickPadding: 5,
         tickRotation: 0,
         legendOffset: 36,
-        tickValues: ["2022-02-01", "2022-03-01", "2022-04-01","2022-05-02","2022-06-01","2022-07-01","2022-08-01"],
+        tickValues: ["2022-02-01", "2022-04-01","2022-06-01","2022-08-01"],
         legendPosition: "middle",
       }}
       axisLeft={{
