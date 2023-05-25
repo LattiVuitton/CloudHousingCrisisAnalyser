@@ -6,6 +6,8 @@ import MessageIcon from '@mui/icons-material/Message';
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart2_1";
 import LineChart2 from "../../components/LineChart2_2";
+import MapComponent4 from "../../components/Income-offensivemap";
+import MapComponent3 from "../../components/Incomemap";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -87,6 +89,40 @@ const Dashboard = () => {
           </Box>
           <Box height="350px" m="-20px 0 0 0">
             <LineChart2 isDashboard={false} />
+          </Box>
+        </Box>
+        <Box
+          gridColumn="span 6"
+          gridRow="span 5"
+          backgroundColor={colors.main[400]}
+          padding="30px"
+        >
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ marginBottom: "15px" }}
+          >
+            Rental Index and All Tweets
+          </Typography>
+          <Box height="200px">
+            <MapComponent3 />
+          </Box>
+        </Box>
+        <Box
+          gridColumn="span 6"
+          gridRow="span 5"
+          backgroundColor={colors.main[400]}
+          padding="30px"
+        >
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ marginBottom: "15px" }}
+          >
+            Rental Index and Housing Related Tweets
+          </Typography>
+          <Box >
+            <MapComponent4 />
           </Box>
         </Box>
         

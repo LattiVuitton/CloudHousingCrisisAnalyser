@@ -135,7 +135,7 @@ const MapComponent2 = () => {
     }, [mapRef, loading, sentiment, mapFeatures]);
  
     return loading ? (<Box display="flex" alignItems="center" justifyContent="center" height="100%" width="100%"><div className="lds-dual-ring"></div></Box>) : (
-        <div id="map" ref={mapRef} style={{ height: "600px" }} />
+        <div id="map" ref={mapRef} style={{ height: "500px" }} />
     );
 };
 
