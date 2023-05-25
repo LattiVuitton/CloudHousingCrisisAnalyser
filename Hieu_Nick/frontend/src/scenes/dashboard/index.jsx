@@ -77,23 +77,11 @@ const Dashboard = () => {
             }
           />
         </Box>
-        {/* <Box> */}
-          {/* <StatBox
-            title="32,441"
-            subtitle="sth sth"
-            // icon={
-            //   <PersonAddIcon
-            //     sx={{ color: colors.green[600], fontSize: "26px" }}
-            //   />
-            // }
-          /> */}
-        {/* </Box> */}
-        
         
         {/* ROW 2 */}
         <Box
           gridColumn="span 6"
-          gridRow="span 3"
+          gridRow="2 / span 2"
           backgroundColor={colors.main[400]}
         >
           <Box
@@ -131,7 +119,7 @@ const Dashboard = () => {
           >
             Average sentiment in different platforms and regions
           </Typography>
-          <Box height="400px" mt="-20px" ml= "25px">
+          <Box height="400px" width ="650px" mt="-20px" ml= "25px">
             <BarChart isDashboard={false} />
           </Box>
         </Box>

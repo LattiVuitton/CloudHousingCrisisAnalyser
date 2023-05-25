@@ -56,7 +56,7 @@ const BarChart = ({ isDashboard = false }) => {
       padding={0.3}
       valueScale={{ type: "linear", min: minValue - 0.03, max: maxValue + 0.03  }}
       indexScale={{ type: "band", round: true }}
-      colors={(bar) => (bar.data.Sentiment > 0 ? '#9AFF66' : '#EE4033')}
+      colors={(bar) => (bar.data.Sentiment > 0 ? '#9AFF66' : '#FF3131')}
       borderColor={{
         from: "color",
         modifiers: [["darker", "1.6"]],

@@ -360,7 +360,7 @@ const MapComponent2 = () => {
     }, []);
 
     return (
-        <div id="map" ref={mapRef} style={{ height: "600px" }} />
+        <div id="map" ref={mapRef} style={{ height: "500px" }} />
     );
 };
 

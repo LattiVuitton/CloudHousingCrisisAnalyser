@@ -13,7 +13,7 @@ const Geography = () => {
       <Header title="What is the sentiment of people who tweet about housing and the levels of rental index change?" subtitle="Average Sentiment by Suburbs with Different Rental Index Change" />
 
       <Box
-        height="75vh"
+        height="65vh"
         border={`1px solid ${colors.light[100]}`}
         borderRadius="4px"
       >

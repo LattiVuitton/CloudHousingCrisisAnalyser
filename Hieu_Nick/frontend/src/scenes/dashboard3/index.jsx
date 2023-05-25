@@ -5,6 +5,8 @@ import Header from "../../components/Header";
 import LineChart from "../../components/LineChart3_1";
 import LineChart3_2 from "../../components/LineChart3_2";
 import GeographyChart from "../../components/GeographyChart";
+import MapComponent from "../../components/Leafletmap";
+import MapComponent2 from "../../components/Fullmap";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -93,7 +95,7 @@ const Dashboard = () => {
         {/* ROW 3 */}
         <Box
           gridColumn="span 6"
-          gridRow="span 2"
+          gridRow="span 4"
           backgroundColor={colors.main[400]}
           padding="30px"
         >
@@ -105,12 +107,12 @@ const Dashboard = () => {
             Geography
           </Typography>
           <Box height="200px">
-            <GeographyChart isDashboard={false} />
+            <MapComponent2 />
           </Box>
         </Box>
         <Box
           gridColumn="span 6"
-          gridRow="span 2"
+          gridRow="span 4"
           backgroundColor={colors.main[400]}
           padding="30px"
         >
@@ -121,8 +123,8 @@ const Dashboard = () => {
           >
             Geography
           </Typography>
-          <Box height="200px">
-            <GeographyChart isDashboard={false} />
+          <Box >
+            <MapComponent />
           </Box>
         </Box>
         
