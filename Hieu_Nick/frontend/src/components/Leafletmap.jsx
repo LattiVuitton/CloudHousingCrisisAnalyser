@@ -119,7 +119,7 @@ legend.addTo(map);
     }, []);
 
     return (
-        <div id="map" ref={mapRef} style={{ height: "650px", width:"1525px" }} />
+        <div id="map" ref={mapRef} style={{ height: "500px" }} />
     );
 };
 
