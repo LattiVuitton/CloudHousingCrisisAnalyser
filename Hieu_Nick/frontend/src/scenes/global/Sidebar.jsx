@@ -275,56 +275,6 @@ const handleAlignment = (event, newAlignment) => {
                             />
                           </>
                         )}
-                         {(alignment === "3") && (
-                          <>
-                            <Item
-                              title="Time Series 3.1"
-                              to="/line3_1"
-                              icon={<TimelineOutlinedIcon />}
-                              selected={selected}
-                              setSelected={setSelected}
-                            />
-                            <Item
-                              title="Time Series 3.2"
-                              to="/line3_2"
-                              icon={<TimelineOutlinedIcon />}
-                              selected={selected}
-                              setSelected={setSelected}
-                            />
-                            <Item
-                  title="Map 1"
-                  to="/geography"
-                  icon={<MapOutlinedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                  handleClick={() => (alignment === "2" && selected === "Map 1") && {}}
-                />
-                <Item
-                  title="Map 2"
-                  to="/geography1_2"
-                  icon={<MapOutlinedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                  handleClick={() => (alignment === "2" && selected === "Map 2") && {}}
-                />
-                <Item
-                  title="Map 3"
-                  to="/geography2_1"
-                  icon={<MapOutlinedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                  handleClick={() => (alignment === "2" && selected === "Map 3") && {}}
-                />
-                <Item
-                  title="Map 4"
-                  to="/geography2_2"
-                  icon={<MapOutlinedIcon/>}
-                  selected={selected}
-                  setSelected={setSelected}
-                  handleClick={() => (alignment === "2" && selected === "Map 4") && {}}
-                  />
-                          </>
-                        )}
             
                         {alignment === "3" && (
                           <>

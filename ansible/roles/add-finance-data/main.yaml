@@ -16,6 +16,8 @@
   ansible.builtin.pip:
     name: 
       - yfinance
+      - numpy
+      - matplotlib
 
 - name: Copy finance file
   ansible.builtin.copy:

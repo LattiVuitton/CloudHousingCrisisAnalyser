@@ -2,7 +2,8 @@
 ## For COMP90024
 
 Check out our project: http://172.26.136.103:3000/
-Video Link:
+
+Video Link: https://www.youtube.com/watch?v=Q2B4XuQ-8Lc
 
 This repository contains the source code for the report on the Australian Economy and Housing Sentiment Analyser. The report was created as part of COMP90024 Cluster and Cloud Computing Assignment 2.
 
