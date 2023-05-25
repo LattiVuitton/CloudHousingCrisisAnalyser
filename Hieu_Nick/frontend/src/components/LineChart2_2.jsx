@@ -102,7 +102,7 @@ const LineChart2_2 = ({ isCustomLineColors = false, isDashboard = false }) => {
         type: "linear",
         min: "auto",
         max: "auto",
-        stacked: true,
+        stacked: false,
         reverse: false,
       }}
       yFormat=" >-.2f"
@@ -116,10 +116,8 @@ const LineChart2_2 = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "Twitter sentiment/BTC price",
         legendOffset: 36,
         tickValues: ["2022-02-01", "2022-03-01", "2022-04-01","2022-05-02","2022-06-01","2022-07-01","2022-08-01"],
-        // tickValues:[1,2,3],
         legendPosition: "middle",
       }}
       axisLeft={{

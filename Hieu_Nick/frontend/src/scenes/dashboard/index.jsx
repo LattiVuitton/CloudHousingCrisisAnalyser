@@ -1,26 +1,36 @@
 import { useEffect, useState } from "react";
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import MessageIcon from '@mui/icons-material/Message';
 import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
+import BarChart1_1 from "../../components/BarChart1_1";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const [backendData, setBackendData] = useState([null]);
+  const [backendDataTW, setBackendDataTW] = useState([null]);
+  useEffect(() => {
+    fetch("/counttw",{
+      mode: 'no-cors',
+    }).then(
+      (response) => response.json()
+      .then((data) => {setBackendDataTW(data)
+        console.log("backendData API ", backendDataTW);
+      })
+    );
+  }, [])
+  const [backendDataMA, setBackendDataMA] = useState([null]);
   useEffect(() => {
     fetch("/countma",{
       mode: 'no-cors',
     }).then(
       (response) => response.json()
-      .then((data) => {setBackendData(data)
-        console.log("backendData API ", backendData);
+      .then((data) => {setBackendDataMA(data)
+        console.log("backendData API ", backendDataMA);
       })
     );
   }, [])
@@ -29,7 +39,7 @@ const Dashboard = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to the dashboard" />
+        <Header title="SCENARIO 1" subtitle="General" />
       </Box>
       {/* GRID & CHARTS */}
       <Box
@@ -47,10 +57,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={
-              //[backendData.data]
-              2749014/1000000}
-            title2=" M"
+            title={[backendDataTW.data]}
             subtitle="Number of Twitter posts"
             icon={
               <TwitterIcon
@@ -67,8 +74,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={([backendData.data])/1000}
-            title2=" K"
+            title={([backendDataMA.data])}
             subtitle="Number of Mastodon posts"
             icon={
               <MessageIcon
@@ -93,7 +99,7 @@ const Dashboard = () => {
         {/* ROW 2 */}
         <Box
           gridColumn="span 6"
-          gridRow="span 2"
+          gridRow="2 / span 3"
           backgroundColor={colors.main[400]}
         >
           <Box
@@ -113,15 +119,15 @@ const Dashboard = () => {
               </Typography>
             </Box>
           </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={false} />
+          <Box height="375px" width ="600px" ml="50px">
+          <BarChart isDashboard={false} />
           </Box>
         </Box>
 
         {/* ROW 2 */}
         <Box
           gridColumn="span 6"
-          gridRow="span 2"
+          gridRow="span 4"
           backgroundColor={colors.main[400]}
         >
           <Typography
@@ -131,8 +137,8 @@ const Dashboard = () => {
           >
             Average sentiment in different platforms and regions
           </Typography>
-          <Box height="250px" mt="-20px">
-            <BarChart isDashboard={false} />
+          <Box height="500px" width ="675px" mt="20px" ml= "25px">
+          <BarChart1_1 isDashboard={false} />
           </Box>
         </Box>
         {/* <Box
@@ -145,7 +151,7 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Bar chart
+            Usage of Languages on Twitter vs Mastodon
           </Typography>
           <Box height="250px" mt="-20px">
             <BarChart isDashboard={false} />

@@ -489,7 +489,7 @@ app.get("/countMA", async (req, res) => {
   }
 });
 
-const dbSudoRental = couchdb.db.use("sudo_rental_data_copy"); // Replace with your database name
+const dbSudoRental = couchdb.db.use("sudo_rental_data_copy"); 
 
 app.get("/map", async (req, res) => {
   try {
@@ -504,7 +504,7 @@ app.get("/map", async (req, res) => {
         properties: {
           id: row.id,
           key: row.key,
-          rentalIndexDifference: row.value.rentalIndexDifference, // Assuming 'value' has 'rentalIndexDifference' property
+          rentalIndexDifference: row.value.rentalIndexDifference, 
         },
       };
     });
@@ -564,6 +564,7 @@ app.get("/suburb-sentiment", async (req, res) => {
 });
 
 const incomeData = couchdb.db.use("sudo_income_data_copy");
+
 app.get("/median-income", async (req, res) => {
   try {
     const body = await incomeData.view("location", "median-income-vic-nsw", {
