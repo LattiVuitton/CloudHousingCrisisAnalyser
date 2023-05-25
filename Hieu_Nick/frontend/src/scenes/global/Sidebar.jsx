@@ -13,15 +13,21 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import { useRoute } from "../../routeContext";
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const Item = ({ title, to, icon, selected, setSelected, handleClick }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  console.log("title ", title);
+  //const { route, setRoute } = useRoute();
+  //setRoute(title);
+  // if(selected === title) {
+  //   //handleClick();
+  //   console.log("title at the moment clicked ", title);
+  //   setRoute(title);
+  // }
   return (
     <MenuItem
       active={selected === title}
@@ -33,11 +39,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
     >
       <Typography>{title}</Typography>
       <Link
-        to={{
-          pathname: to,
-          state: { 'title': title },
-        }}
-        // state={}
+        to={to}
       />
     </MenuItem>
   );
@@ -49,6 +51,7 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
   const [alignment, setAlignment] = useState("1");
+  const { route, setRoute } = useRoute();
 
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -120,10 +123,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Group Number x
-                </Typography>
-                <Typography variant="h5" color={colors.green[500]}>
-                  Hello world
+                  Group 49
                 </Typography>
               </Box>
             </Box>
@@ -150,6 +150,7 @@ const Sidebar = () => {
               <ToggleButton value="2">2</ToggleButton>
               <ToggleButton value="3">3</ToggleButton>
             </ToggleButtonGroup>
+            
             <Typography
               variant="h6"
               color={colors.light[300]}
@@ -157,13 +158,38 @@ const Sidebar = () => {
             >
               Dashboard
             </Typography>
+            {alignment === "1" && (
             <Item
-              title="Home"
-              to="/"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            title="Home"
+            to="/"
+            icon={<HomeOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+            handleClick={() => {}}
+          />
+            )}
+            {alignment === "2" && (
+             
+             <Item
+             title="Home"
+             to="/2"
+             icon={<HomeOutlinedIcon />}
+             selected={selected}
+             setSelected={setSelected}
+             handleClick={() => {}}
+           />
+             )}
+             {alignment === "3" && (
+             
+             <Item
+             title="Home"
+             to="/3"
+             icon={<HomeOutlinedIcon />}
+             selected={selected}
+             setSelected={setSelected}
+             handleClick={() => {}}
+           />
+             )}
 
             <Typography
               variant="h6"
@@ -176,54 +202,62 @@ const Sidebar = () => {
             {alignment === "1" && (
               <>
                 <Item
-                  title="Bar Chart 1"
-                  to="/bar"
+                  title="Bar Chart 1_1"
+                  to="/bar1_1"
                   icon={<BarChartOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
+                  handleClick={() => (alignment === "1" && selected === "Bar Chart 1_1") && {}}
                 />
                 <Item
-                  title="Bar Chart 2"
+                  title="Bar Chart 1_2"
                   to="/bar"
                   icon={<BarChartOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
+                  handleClick={() => (alignment === "1" && selected === "Bar Chart 1_2") && {}}
                 />
               </>
             )}
 
-            {/* <Item
-              title="Pie Chart"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
-            {alignment === "1" && (
-              <Item
-                title="Time Series"
-                to="/line"
-                icon={<TimelineOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-            )}
-            {(alignment === "2" || alignment === "3") && (
+            {(alignment === "2") && (
               <>
                 <Item
-                  title="Time Series 1"
-                  to="/line"
+                  title="Time Series 2.1"
+                  to="/line2_1"
                   icon={<TimelineOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
+                  handleClick={() => (alignment === "2" && selected === "Time Series 2.1") && {}}
                 />
                 <Item
-                  title="Time Series 2"
-                  to="/line"
+                  title="Time Series 2.2"
+                  to="/line2_2"
                   icon={<TimelineOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
+                  handleClick={() => (alignment === "2" && selected === "Time Series 2.2") && {}}
                 />
+              </>
+            )}
+             {(alignment === "3") && (
+              <>
+                <Item
+                  title="Time Series 3.1"
+                  to="/line3_1"
+                  icon={<TimelineOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                  handleClick={() => (alignment === "3" && selected === "Time Series 3.1") && {}}
+                />
+                {/* <Item
+                  title="Time Series 3.2"
+                  to="/line3_2"
+                  icon={<TimelineOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                  handleClick={() => (alignment === "3" && selected === "Time Series 3.2") && {}}
+                /> */}
               </>
             )}
 
@@ -244,13 +278,15 @@ const Sidebar = () => {
                   icon={<MapOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
+                  handleClick={() => (alignment === "2" && selected === "Map 1") && {}}
                 />
                 <Item
                   title="Map 2"
-                  to="/geography"
+                  to="/geography1_2"
                   icon={<MapOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
+                  handleClick={() => (alignment === "2" && selected === "Map 2") && {}}
                 />
               </>
             )}
