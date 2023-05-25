@@ -92,6 +92,7 @@ const LineChart2_2 = ({ isCustomLineColors = false, isDashboard = false }) => {
   const chartColors = isDashboard ? { datum: "color" } : { scheme: "set2" };
 
   return (
+    <>
     <ResponsiveLine
       data={backendData ? backendData : []}
       theme={chartTheme}
@@ -100,8 +101,8 @@ const LineChart2_2 = ({ isCustomLineColors = false, isDashboard = false }) => {
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
-        min: "auto",
-        max: "auto",
+        min: 9500, 
+        max: 60000,
         stacked: false,
         reverse: false,
       }}
@@ -167,6 +168,10 @@ const LineChart2_2 = ({ isCustomLineColors = false, isDashboard = false }) => {
         },
       ]}
     />
+    <p style={{textAlign: "center", fontSize: "0.85em"}}>
+      Note: Average Twitter sentiment are scaled using the formula (Average sentiment+1) * 25000
+    </p>
+    </>
   );
 };
 
