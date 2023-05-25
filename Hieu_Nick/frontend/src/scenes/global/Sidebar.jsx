@@ -301,6 +301,22 @@ const Sidebar = () => {
                   setSelected={setSelected}
                   handleClick={() => (alignment === "2" && selected === "Map 2") && {}}
                 />
+                <Item
+                  title="Map 3"
+                  to="/geography2_1"
+                  icon={<MapOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                  handleClick={() => (alignment === "2" && selected === "Map 3") && {}}
+                />
+                <Item
+                  title="Map 4"
+                  to="/geography2_2"
+                  icon={<MapOutlinedIcon/>}
+                  selected={selected}
+                  setSelected={setSelected}
+                  handleClick={() => (alignment === "2" && selected === "Map 4") && {}}
+                  />
               </>
             )}
           </Box>

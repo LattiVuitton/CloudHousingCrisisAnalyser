@@ -13,6 +13,8 @@ import Line3_1 from "./scenes/line3_1";
 import Line3_2 from "./scenes/line3_2";
 import Geography from "./scenes/geography";
 import Geography1_2 from "./scenes/geography1_2";
+import Geography2_1 from "./scenes/geography2_1";
+import Geography2_2 from "./scenes/geography2_2";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMode } from "./theme";
 import { RouteProvider } from "./routeContext";
@@ -53,6 +55,8 @@ function App() {
               <Route path="/line3_2" element={<Line3_2 />} />
               <Route path="/geography" element={<Geography />} />
               <Route path="/geography1_2" element={<Geography1_2 />} />
+              <Route path="/geography2_1" element={<Geography2_1/>}/>
+              <Route path="/geography2_2" element={<Geography2_2/>}/>
             </Routes>
           </main>
         </div>
