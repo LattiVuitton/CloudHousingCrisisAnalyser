@@ -24,6 +24,9 @@ const BarChart = ({ isDashboard = false }) => {
     );
   }, []);
 
+  const dataValues = backendData.map(item => item.Sentiment);
+  const minValue = Math.min(...dataValues);
+  const maxValue = Math.max(...dataValues);
 
   return (
     <ResponsiveBar
@@ -62,7 +65,7 @@ const BarChart = ({ isDashboard = false }) => {
       indexBy="Platform/Country"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
-      valueScale={{ type: "linear" }}
+      valueScale={{ type: "linear", min: minValue - 0.03, max: maxValue + 0.03  }}
       indexScale={{ type: "band", round: true }}
       colors={{ scheme: "nivo" }}
       defs={[
