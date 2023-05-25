@@ -4,6 +4,7 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart3_1";
 import LineChart3_2 from "../../components/LineChart3_2";
+import GeographyChart from "../../components/GeographyChart";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -88,6 +89,45 @@ const Dashboard = () => {
             <LineChart3_2 isDashboard={false} />
           </Box>
         </Box>
+
+        {/* ROW 3 */}
+        <Box
+          gridColumn="span 6"
+          gridRow="span 2"
+          backgroundColor={colors.main[400]}
+          padding="30px"
+        >
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ marginBottom: "15px" }}
+          >
+            Geography
+          </Typography>
+          <Box height="200px">
+            <GeographyChart isDashboard={false} />
+          </Box>
+        </Box>
+        <Box
+          gridColumn="span 6"
+          gridRow="span 2"
+          backgroundColor={colors.main[400]}
+          padding="30px"
+        >
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ marginBottom: "15px" }}
+          >
+            Geography
+          </Typography>
+          <Box height="200px">
+            <GeographyChart isDashboard={false} />
+          </Box>
+        </Box>
+        
+
+
       </Box>
     </Box>
   );
