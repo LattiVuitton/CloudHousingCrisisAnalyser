@@ -275,24 +275,6 @@ const handleAlignment = (event, newAlignment) => {
                             />
                           </>
                         )}
-                         {(alignment === "3") && (
-                          <>
-                            <Item
-                              title="Time Series 3.1"
-                              to="/line3_1"
-                              icon={<TimelineOutlinedIcon />}
-                              selected={selected}
-                              setSelected={setSelected}
-                            />
-                            {/* <Item
-                              title="Time Series 3.2"
-                              to="/line3_2"
-                              icon={<TimelineOutlinedIcon />}
-                              selected={selected}
-                              setSelected={setSelected}
-                            /> */}
-                          </>
-                        )}
             
                         {alignment === "3" && (
                           <>
