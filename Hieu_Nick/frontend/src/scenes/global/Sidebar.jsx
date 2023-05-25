@@ -30,7 +30,10 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       onClick={() => setSelected(title)}
       icon={icon}
     >
-      <Typography>{title}</Typography>
+      {Array.isArray(title) ? title.map((line, i) => <Typography key={i}>{line}</Typography>) : <Typography>{title}</Typography>}
+      <Link
+        to={to}
+      />
       <Link
         to={to}
       />
@@ -254,14 +257,14 @@ const handleAlignment = (event, newAlignment) => {
                         {(alignment === "2") && (
                           <>
                             <Item
-                              title="Time Series 2.1"
+                              title={["All Ordinaries Index"]}
                               to="/line2_1"
                               icon={<TimelineOutlinedIcon />}
                               selected={selected}
                               setSelected={setSelected}
                             />
                             <Item
-                              title="Time Series 2.2"
+                              title={["Bitcoin Index"]}
                               to="/line2_2"
                               icon={<TimelineOutlinedIcon />}
                               selected={selected}
@@ -288,22 +291,23 @@ const handleAlignment = (event, newAlignment) => {
                           </>
                         )}
             
-                        {alignment === "2" && (
+                        {alignment === "3" && (
                           <>
-                            <Item
-                              title="Map 1"
-                              to="/geography"
-                              icon={<MapOutlinedIcon />}
-                              selected={selected}
-                              setSelected={setSelected}
-                            />
-                            <Item
-                              title="Map 2"
-                              to="/geography1_2"
-                              icon={<MapOutlinedIcon />}
-                              selected={selected}
-                              setSelected={setSelected}
-                            />
+                          <Item
+                            title={["Rental Index and", "All Tweets"]}
+                            to="/geography1_2"
+                            icon={<MapOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                          />
+                          <Item
+                            title={["Rental Index and", "Housing Tweets"]}
+                            to="/geography"
+                            icon={<MapOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                          />
+                            
                           </>
                         )}
                       </Box>
