@@ -137,7 +137,7 @@ const Dashboard = () => {
           >
             Average sentiment in different platforms and regions
           </Typography>
-          <Box height="500px" width ="600px" mt="20px" ml= "25px">
+          <Box height="500px" width ="675px" mt="20px" ml= "25px">
           <BarChart1_1 isDashboard={false} />
           </Box>
         </Box>
