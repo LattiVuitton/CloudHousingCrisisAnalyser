@@ -465,7 +465,7 @@ app.get("/geography2_2", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-app.listen(2000, () => {
+app.listen(5000, () => {
   console.log(`Example app listening at port 5000`);
 });
 
