@@ -54,4 +54,14 @@ The system is coded in Python for the harvesters and data processors, with a Nod
 - ansible: For deployment
 
 ## Outcomes and Analysis
+
+<img width="1416" alt="Screen Shot 2023-05-26 at 11 32 36" src="https://github.com/LattiVuitton/CloudHousingCrisisAnalyser/assets/80323885/a6a1c2e0-9a4e-4e59-af40-9c08ab5b364b">
+
+<img width="1512" alt="Screen Shot 2023-05-26 at 11 17 58" src="https://github.com/LattiVuitton/CloudHousingCrisisAnalyser/assets/80323885/ae4df917-7774-41f1-afe9-2f37f6f93401">
+
+<img width="1368" alt="Screen Shot 2023-05-26 at 11 34 13" src="https://github.com/LattiVuitton/CloudHousingCrisisAnalyser/assets/80323885/fbe241f3-8137-4420-8089-1e2a0895bbbe">
+
+
+
+
 For outcomes and analysis of our scenarios please refer to report attached as part of submission.
