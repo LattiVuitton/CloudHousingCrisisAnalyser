@@ -35,60 +35,7 @@ const Dashboard = () => {
         gridAutoRows="140px"
         gap="20px"
       >
-        {/* ROW 1 */}
-        <Box
-          gridColumn="span 12"
-          gridRow="span 2"
-          backgroundColor={colors.main[400]}
-        >
-          <Box
-            mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.light[100]}
-              >
-                Twitter Sentiment vs Housing Interest Rate Over Time
-              </Typography>
-            </Box>
-          </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={false} />
-          </Box>
-        </Box>
-
-        {/* <Box
-          gridColumn="span 6"
-          gridRow="span 2"
-          backgroundColor={colors.main[400]}
-        >
-          <Box
-            mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.light[100]}
-              >
-                Twitter Sentiment vs Sudo Rental Index Over Time
-              </Typography>
-            </Box>
-          </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            <LineChart3_2 isDashboard={false} />
-          </Box>
-        </Box> */}
+       
 
         {/* ROW 3 */}
         <Box
@@ -102,7 +49,7 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ marginBottom: "15px" }}
           >
-            Geography
+            Rental Index and All Tweets
           </Typography>
           <Box height="200px">
             <MapComponent2 />
@@ -119,7 +66,7 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ marginBottom: "15px" }}
           >
-            Geography
+            Rental Index and Housing Related Tweets
           </Typography>
           <Box >
             <MapComponent />

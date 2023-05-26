@@ -562,3 +562,50 @@ app.get("/suburb-sentiment", async (req, res) => {
     console.error("Error retrieving suburb sentiment:", error);
   }
 });
+
+const incomeData = couchdb.db.use("sudo_income_data_copy");
+
+app.get("/median-income", async (req, res) => {
+  try {
+    const body = await incomeData.view("location", "median-income-vic-nsw", {
+      stale: "ok",
+    });
+    console.log(body);
+    // Map the median total household income weekly to each location
+    const data = body.rows.map((row) => ({
+      key: row.key,
+      value: {
+        geometry: row.value.geometry,
+        median_tot_hhd_inc_weekly: row.value.median_tot_hhd_inc_weekly,
+      },
+    }));
+    return res.json({ rows: data });
+  } catch (error) {
+    console.error("Error retrieving median income data:", error);
+  }
+});
+
+// retrieves vic and nsw tweets by suburb for income
+app.get("/vic-nsw-sentiment", async (req, res) => {
+  try {
+    const body = await dbTwitterData.view("sentiment", "sentiment-vic-nsw", {
+      group_level: 1,
+      stale: "ok",
+    });
+    console.log("vic-nsw-data: ", body.rows);
+    //Map all tweets to postcode, number of offensive tweets, and average sentiment
+    const data = body.rows.map((row) => ({
+      key: row.key,
+
+      value: {
+        coordinates: row.value.geo_point,
+        avgSentiment: row.value.avSentiment,
+        offensive_count: row.value.tweet_count,
+      },
+    }));
+    return res.json({ rows: data });
+  } catch (error) {
+    console.error("Error retrieving postcode sentiment:", error);
+    res.status(500).send("Error retrieving postcode sentiment");
+  }
+});
