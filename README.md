@@ -30,6 +30,13 @@ The report is divided into three main sections:
   - Deploy SWARM services
 7. Run `./deploy-applications.sh`
 
+## Scaling Instructions
+1. From the project root directory, run cd ansible
+2. To scale CouchDB clusters run `./scale-couchdb-cluster.sh`
+- Note: You will need to configure the scale number for the service you want to replicate in deploy-swarm-service.yaml under roles.
+3. To scale SWARM services run `./scale-swarm-services.sh`
+
+
 ## System Design and Architecture
 The system is designed to be scalable and fault-tolerant. and is deployed on a cluster of Docker containers. The CouchDB database is also deployed on a cluster of nodes. This architecture allows the system to handle large amounts of data and to continue to operate even if some of the components fail. It is also designed with user experience in mind and is easy to use with simple and intuitive user interface. For more details please refer to submitted report.
 
