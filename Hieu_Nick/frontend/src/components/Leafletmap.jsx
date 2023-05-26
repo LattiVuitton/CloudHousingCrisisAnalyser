@@ -66,7 +66,7 @@ const MapComponent = () => {
         };
 
 legend.addTo(map);
-        fetch('/housing-tweets')
+        fetch('/housing-tweets.json')
             .then(response => response.json())
             .then(data => {
                 data.rows.forEach(row => {
@@ -75,7 +75,7 @@ legend.addTo(map);
                     console.error(sentimentBySuburb)
                 });
 
-                fetch('/map')
+                fetch('/rental-index.geojson')
                     .then(response => response.json())
                     .then(data => {
                         const onEachFeature = (feature, layer) => {

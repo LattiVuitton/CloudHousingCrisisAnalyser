@@ -273,6 +273,20 @@ const handleAlignment = (event, newAlignment) => {
                               selected={selected}
                               setSelected={setSelected}
                             />
+                             <Item
+                            title={["Income and Sentiment"]}
+                            to="/geography2_1"
+                            icon={<MapOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                          />
+                           <Item
+                            title={["Income and Offensive", "Language Use"]}
+                            to="/geography2_2"
+                            icon={<MapOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                          />
                           </>
                         )}
             
