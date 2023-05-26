@@ -1,7 +1,7 @@
 {
   "name": "react-admin",
   "version": "0.1.0",
-  "proxy": "http://172.26.136.103:5000",
+  "proxy": "http://backend:5000",
   "homepage": ".",
   "private": true,
   "dependencies": {

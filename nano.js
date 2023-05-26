@@ -283,11 +283,11 @@ app.get("/bar", async (req, res) => {
   }
 });
 
-app.listen(2000, () => {
+app.listen(5000, () => {
   console.log(`Example app listening at port 5000`);
 });
 
-const dbSudoRental = couchdb.db.use("sudo_rental_data_copy"); 
+const dbSudoRental = couchdb.db.use("sudo_rental_data_copy");
 
 app.get("/map", async (req, res) => {
   try {
@@ -295,6 +295,7 @@ app.get("/map", async (req, res) => {
 
     // Extract the desired data from the retrieved documents
     const data = body.rows.map((row) => {
+      console.log('map data fetched: ', body)
       // Convert the row into the desired format
       return {
         type: "Feature",
@@ -302,7 +303,7 @@ app.get("/map", async (req, res) => {
         properties: {
           id: row.id,
           key: row.key,
-          rentalIndexDifference: row.value.rentalIndexDifference, 
+          rentalIndexDifference: row.value.rentalIndexDifference,
         },
       };
     });

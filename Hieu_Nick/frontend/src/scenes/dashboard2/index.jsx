@@ -102,7 +102,7 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ marginBottom: "15px" }}
           >
-            Rental Index and All Tweets
+            Income and Sentiment 
           </Typography>
           <Box height="200px">
             <MapComponent3 />
@@ -119,7 +119,7 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ marginBottom: "15px" }}
           >
-            Rental Index and Housing Related Tweets
+            Income and Offensive Tweets
           </Typography>
           <Box >
             <MapComponent4 />

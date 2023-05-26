@@ -489,7 +489,8 @@ app.get("/countMA", async (req, res) => {
   }
 });
 
-const dbSudoRental = couchdb.db.use("sudo_rental_data_copy"); 
+
+const dbSudoRental = couchdb.db.use("sudo_rental_data_copy"); // Replace with your database name
 
 app.get("/map", async (req, res) => {
   try {
@@ -504,19 +505,18 @@ app.get("/map", async (req, res) => {
         properties: {
           id: row.id,
           key: row.key,
-          rentalIndexDifference: row.value.rentalIndexDifference, 
+          rentalIndexDifference: row.value.rentalIndexDifference, // Assuming 'value' has 'rentalIndexDifference' property
         },
       };
     });
 
-    return res.json({ data });
+    return res.json({ data: data });
   } catch (error) {
     console.error("Error retrieving item count:", error);
   }
 });
 
 const dbTwitterData = couchdb.db.use("twitter_data");
-
 app.get("/housing-tweets", async (req, res) => {
   try {
     const body = await dbTwitterData.view(
