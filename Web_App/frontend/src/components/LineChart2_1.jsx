@@ -11,22 +11,24 @@ const LineChart2_1 = () => {
     fetch("/line2_1", { mode: "no-cors" })
       .then((response) => response.json())
       .then((data) => {
-        const scaledData = data.data.map((item) => {
-          if (item.id === 'Twitter sentiment') {
-            return {
-              ...item,
-              data: item.data.map((point) => ({
-                ...point,
-                y: (1 + point.y) * 7000,
-              })),
-            };
-          } else {
-            return item;
-          }
-        });
+        const scaledData = data.data
+          .filter(item => item.id !== 'S&P 500') // remove 'S&P 500' data
+          .map((item) => {
+            if (item.id === 'Twitter sentiment') {
+              return {
+                ...item,
+                data: item.data.map((point) => ({
+                  ...point,
+                  y: (1 + point.y) * 7000,
+                })),
+              };
+            } else {
+              return item;
+            }
+          });
         setBackendData(scaledData);
       });
-  }, []);
+}, []);
 
   const chartTheme = {
     axis: {
